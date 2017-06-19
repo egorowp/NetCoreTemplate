@@ -6,9 +6,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using NetCoreTemplate.DataAccess;
 using NetCoreTemplate.Domain.Contracts;
 using NetCoreTemplate.Logic;
-using NetCoreTemplate.Domain.Contracts;
+using NetCoreTemplate.Logic.Autofac;
 using NetCoreTemplate.Logic.Services;
 
 namespace NetCoreTemplate.Web
@@ -43,10 +44,14 @@ namespace NetCoreTemplate.Web
             // the collection, and build the container. If you want
             // to dispose of the container at the end of the app,
             // be sure to keep a reference to it as a property or field.
-            builder.RegisterType<PhoneService>().As<IPhoneService>();
+            builder.RegisterModule<ServicesModule>();
+            builder.RegisterModule( new DatabaseModule()
+            {
+                ConnectionString = Configuration.GetConnectionString("DefaultConnection")
+            });
+            
             builder.Populate(services);
             this.ApplicationContainer = builder.Build();
-
             // Create the IServiceProvider based on the container.
             return new AutofacServiceProvider(this.ApplicationContainer);
         }
@@ -86,49 +91,5 @@ namespace NetCoreTemplate.Web
             // application container, register for the "ApplicationStopped" event.
             appLifetime.ApplicationStopped.Register(() => this.ApplicationContainer.Dispose());
         }
-        //public Startup(IHostingEnvironment env)
-        //{
-        //    var builder = new ConfigurationBuilder()
-        //        .SetBasePath(env.ContentRootPath)
-        //        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-        //        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-        //        .AddEnvironmentVariables();
-        //    Configuration = builder.Build();
-        //}
-
-        //public IConfigurationRoot Configuration { get; }
-
-        //// This method gets called by the runtime. Use this method to add services to the container.
-        //public void ConfigureServices(IServiceCollection services)
-        //{
-        //    // Add framework services.
-        //    services.AddMvc();
-        //}
-
-        //// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        //public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-        //{
-        //    loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-        //    loggerFactory.AddDebug();
-
-        //    if (env.IsDevelopment())
-        //    {
-        //        app.UseDeveloperExceptionPage();
-        //        app.UseBrowserLink();
-        //    }
-        //    else
-        //    {
-        //        app.UseExceptionHandler("/Home/Error");
-        //    }
-
-        //    app.UseStaticFiles();
-
-        //    app.UseMvc(routes =>
-        //    {
-        //        routes.MapRoute(
-        //            name: "default",
-        //            template: "{controller=Home}/{action=Index}/{id?}");
-        //    });
-        //}
     }
 }
