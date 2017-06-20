@@ -5,7 +5,7 @@ namespace NetCoreTemplate.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private IPhoneService _phoneService;
+        private readonly IPhoneService _phoneService;
 
         public HomeController(IPhoneService phoneService)
         {
@@ -15,7 +15,7 @@ namespace NetCoreTemplate.Web.Controllers
 
         public IActionResult Index()
         {
-            _phoneService.AddNew("Test", "Cmp", 1);
+            //_phoneService.AddNew("Test", "Cmp", 1);
             return View();
         }
 
