@@ -1,5 +1,5 @@
 ﻿import { Injectable } from "@angular/core";
-import { Http, Headers, RequestOptions, Response } from "@angular/http";
+import { Http } from "@angular/http";
 import "rxjs/add/operator/map";
 import { Phone } from "../models/phone";
 
@@ -9,15 +9,18 @@ export class PhonesService {
         console.log("PhoneService initialization ...");
     }
 
-    getUsers() {
-        return this.http.get("./Admin")
+    getPhones() {
+        return this.http.get("./phone")
             .map(res => res.json());
     }
-    saveUser(phone: Phone) {
-        return this.http.post("Admin", phone );
+
+    savePhone(phone: Phone) {
+        return this.http.post("phone/save", phone );
     }
-    deleteUser(phone: Phone) {
-      return this.http.delete("Admin", phone);
+
+    deletePhone(phone: Phone) {
+        return this.http.post("phone/delete", phone).map(
+          res => res.json());
     }
 
 }

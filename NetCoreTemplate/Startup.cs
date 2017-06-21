@@ -6,11 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using NetCoreTemplate.DataAccess;
-using NetCoreTemplate.Domain.Contracts;
-using NetCoreTemplate.Logic;
 using NetCoreTemplate.Logic.Autofac;
-using NetCoreTemplate.Logic.Services;
 
 namespace NetCoreTemplate.Web
 {

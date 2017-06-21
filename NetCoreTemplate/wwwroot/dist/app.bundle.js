@@ -64650,31 +64650,34 @@ var PhonesComponent = (function () {
     function PhonesComponent(phonesServices) {
         var _this = this;
         this.phonesServices = phonesServices;
-        debugger;
-        this.selectedPhone = new phone_1.Phone(0, "", "");
-        this.phonesServices.getUsers().subscribe(function (u) {
+        this.selectedPhone = new phone_1.Phone("", "", "", 0);
+        this.phonesServices.getPhones().subscribe(function (u) {
             _this.phones = u;
         });
     }
     PhonesComponent.prototype.onRowClick = function (i) {
         this.selectedPhone = this.phones[i];
-        $('#userPopup').modal('show');
+        $('#phonePopup').modal('show');
     };
     PhonesComponent.prototype.onPopupSubmit = function (a, b) {
+        debugger;
         if (!this.phones.includes(this.selectedPhone)) {
             this.phones.push(this.selectedPhone);
         }
-        this.phonesServices.saveUser(this.selectedPhone).subscribe(function (u) {
-        });
-        $('#userPopup').modal('hide');
+        this.phonesServices.savePhone(this.selectedPhone).subscribe(function (u) { });
+        $('#phonePopup').modal('hide');
     };
-    PhonesComponent.prototype.onUserDelete = function (i) {
-        return this.phonesServices.deleteUser(this.selectedPhone).subscribe(function (u) {
+    PhonesComponent.prototype.onPhoneDelete = function (i) {
+        var _this = this;
+        this.phonesServices.deletePhone(this.phones[i]).subscribe(function (u) {
+            _this.phones.splice(i, 1);
         });
+        event.stopPropagation();
+        return false;
     };
-    PhonesComponent.prototype.onNewUser = function () {
-        this.selectedPhone = new phone_1.Phone(0, "", "");
-        $('#userPopup').modal('show');
+    PhonesComponent.prototype.onNewPhone = function () {
+        this.selectedPhone = new phone_1.Phone("00000000-0000-0000-0000-000000000000", "", "", 0);
+        $('#phonePopup').modal('show');
     };
     return PhonesComponent;
 }());
@@ -71032,10 +71035,11 @@ platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Phone = (function () {
-    function Phone(ID, UserName, Email) {
-        this.ID = ID;
-        this.UserName = UserName;
-        this.Email = Email;
+    function Phone(Id, Company, Name, Price) {
+        this.Id = Id;
+        this.Company = Company;
+        this.Name = Name;
+        this.Price = Price;
     }
     return Phone;
 }());
@@ -71066,15 +71070,15 @@ var PhonesService = (function () {
         this.http = http;
         console.log("PhoneService initialization ...");
     }
-    PhonesService.prototype.getUsers = function () {
-        return this.http.get("./Admin")
+    PhonesService.prototype.getPhones = function () {
+        return this.http.get("./phone")
             .map(function (res) { return res.json(); });
     };
-    PhonesService.prototype.saveUser = function (phone) {
-        return this.http.post("Admin", phone);
+    PhonesService.prototype.savePhone = function (phone) {
+        return this.http.post("phone/save", phone);
     };
-    PhonesService.prototype.deleteUser = function (phone) {
-        return this.http.delete("Admin", phone);
+    PhonesService.prototype.deletePhone = function (phone) {
+        return this.http.post("phone/delete", phone).map(function (res) { return res.json(); });
     };
     return PhonesService;
 }());
@@ -71141,7 +71145,7 @@ exports.PhonesService = PhonesService;
 /* 208 */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div class=\"container\">\r\n    <h1>Users</h1>\r\n    <button type=\"button\" class=\"btn btn-info btn-lg\" (click)=\"onNewUser()\">New User</button>\r\n\r\n    <table class=\"table table-striped\">\r\n        <thead>\r\n            <tr>\r\n                <th>I</th>\r\n                <th>User Name</th>\r\n                <th>Email</th>\r\n            </tr>\r\n        </thead>\r\n        <tbody *ngFor=\"let user of users;let i = index\">\r\n            <tr (click)=\"onRowClick(i)\">\r\n                <td>{{i}}</td>\r\n                <td>{{user.UserName}}</td>\r\n                <td>{{user.Email}}</td>\r\n                <td class=\"close\" (click)=\"onUserDelete(i)\">x</td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n\r\n    <div id=\"userPopup\" class=\"modal fade\" role=\"dialog\">\r\n        <div class=\"modal-dialog\">\r\n            <div class=\"modal-content\">\r\n                <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n                    <h1 class=\"modal-title\">User</h1>\r\n                </div>\r\n                <form #f=\"ngForm\" (ngSubmit)=\"onPopupSubmit(this)\" class=\"modal-body\"> 0\r\n                    <div class=\"form-group\">\r\n                        <label for=\"name\">Name</label>\r\n                        <input type=\"text\" class=\"form-control\" id=\"name\" [(ngModel)]=\"selectedUser.UserName\"  [ngModelOptions]=\"{standalone: true}\" required>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <label for=\"email\">Email</label>\r\n                        <input type=\"email\" class=\"form-control\" [(ngModel)]=\"selectedUser.Email\"  [ngModelOptions]=\"{standalone: true}\" id=\"email\" >\r\n                    </div>\r\n                    <div class=\"modal-footer\">\r\n                        <button type=\"submit\" class=\"btn btn-primary\">Save</button>\r\n                    </div>\r\n                </form>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n\r\n";
+module.exports = "\r\n<div class=\"container\">\r\n  <h1>Phones</h1>\r\n  <button type=\"button\" class=\"btn btn-info btn-lg\" (click)=\"onNewPhone()\">New Phone</button>\r\n\r\n  <table class=\"table table-striped\">\r\n    <thead>\r\n      <tr>\r\n        <th>#</th>\r\n        <th>Company</th>\r\n        <th>Name</th>\r\n        <th>Price</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody *ngFor=\"let phone of phones;let i = index\">\r\n      <tr (click)=\"onRowClick(i)\">\r\n        <td>{{i}}</td>\r\n        <td>{{phone.Company}}</td>\r\n        <td>{{phone.Name}}</td>\r\n        <td>{{phone.Price}}</td>\r\n        <td class=\"close\" (click)=\"onPhoneDelete(i);\">x</td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n\r\n  <div id=\"phonePopup\" class=\"modal fade\" role=\"dialog\">\r\n    <div class=\"modal-dialog\">\r\n      <div class=\"modal-content\">\r\n        <div class=\"modal-header\">\r\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n          <h1 class=\"modal-title\">Phone</h1>\r\n        </div>\r\n        <form #f=\"ngForm\" (ngSubmit)=\"onPopupSubmit(this)\" class=\"modal-body\">\r\n          <div class=\"form-group\">\r\n            <label for=\"Company\">Company</label>\r\n            <input type=\"text\" class=\"form-control\" id=\"Company\" [(ngModel)]=\"selectedPhone.Company\" [ngModelOptions]=\"{standalone: true}\" required>\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"Name\">Name</label>\r\n            <input type=\"text\" class=\"form-control\" [(ngModel)]=\"selectedPhone.Name\" [ngModelOptions]=\"{standalone: true}\" id=\"Name\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"Price\">Price</label>\r\n            <input type=\"number\" class=\"form-control\" [(ngModel)]=\"selectedPhone.Price\" [ngModelOptions]=\"{standalone: true}\" id=\"Price\">\r\n          </div>\r\n          <div class=\"modal-footer\">\r\n            <button type=\"submit\" class=\"btn btn-primary\">Save</button>\r\n          </div>\r\n        </form>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n";
 
 /***/ })
 /******/ ]);

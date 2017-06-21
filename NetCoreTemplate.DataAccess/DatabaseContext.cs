@@ -20,7 +20,7 @@ namespace NetCoreTemplate.DataAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=(local);Initial Catalog=NetCoreTempale;User ID=sa;Password=password");
+            optionsBuilder.UseSqlServer("Data Source=(local);Initial Catalog=NetCoreTempale;User Id=sa;Password=password");
         }
     }
 }

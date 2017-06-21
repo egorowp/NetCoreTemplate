@@ -1,7 +1,8 @@
 ﻿export class Phone {
     constructor(
-        public ID: number,
-        public UserName: string,
-        public Email: string
+        public Id: string,
+        public Company: string,
+        public Name: string,
+        public Price: number
     ) { }
 }

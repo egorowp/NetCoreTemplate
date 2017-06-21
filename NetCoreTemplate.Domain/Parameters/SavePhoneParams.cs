@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace NetCoreTemplate.Domain.Models
+namespace NetCoreTemplate.Domain.Parameters
 {
-    public class Phone
+    public class SavePhoneParams
     {
         public Guid Id { get; set; }
 
