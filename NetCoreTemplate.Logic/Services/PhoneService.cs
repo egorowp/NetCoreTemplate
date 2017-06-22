@@ -10,73 +10,31 @@ namespace NetCoreTemplate.Logic.Services
 {
     public class PhoneService : IPhoneService
     {
-        private readonly DatabaseContext _dbContext;
+        private readonly IRepositoriesContext _repositoriesContext;
 
-        public PhoneService(DatabaseContext dbContext)
+        public PhoneService(IRepositoriesContext repositoriesContext)
         {
-            _dbContext = dbContext;
+            _repositoriesContext = repositoriesContext;
         }
 
         public Guid AddNew(string name, string company, int price)
         {
-            var phone = _dbContext.Phones.Add(new Phone()
-            {
-                Company = company,
-                Name = name,
-                Price = price
-            });
-            _dbContext.SaveChanges();
-
-            return phone.Entity.Id;
+            return _repositoriesContext.PhoneRepository.AddNew(name, company, price);
         }
 
         public PhoneViewModel[] GetAll()
         {
-            var result = _dbContext.Phones.Select(p => new PhoneViewModel
-            {
-                Id = p.Id,
-                Company = p.Company,
-                Name = p.Name,
-                Price = p.Price
-            });
-            return result.ToArray();
+            return _repositoriesContext.PhoneRepository.GetAll();
         }
 
         public PhoneViewModel Save(SavePhoneParams parameters)
         {
-            var phone = _dbContext.Phones.FirstOrDefault(u => u.Id == parameters.Id);
-            if (phone != null)
-            {
-                phone.Company = parameters.Company;
-                phone.Name = parameters.Name;
-                phone.Price = parameters.Price;
-                _dbContext.Phones.Update(phone);
-            }
-            else
-            {
-                phone = new Phone()
-                {
-                    Company = parameters.Company,
-                    Name = parameters.Name,
-                    Price = parameters.Price
-
-                };
-                _dbContext.Phones.Add(phone);
-            }
-            _dbContext.SaveChanges();
-
-            return new PhoneViewModel(phone);
+            return _repositoriesContext.PhoneRepository.Save(parameters);
         }
 
         public bool Delete(DeleteParams parameters)
         {
-            var deletable = _dbContext.Phones.FirstOrDefault(u => u.Id == parameters.Id);
-            if (deletable != null)
-            {
-                _dbContext.Phones.Remove(deletable);
-                _dbContext.SaveChanges();
-            }
-            return true;
+            return _repositoriesContext.PhoneRepository.Delete(parameters);
         }
     }
 }

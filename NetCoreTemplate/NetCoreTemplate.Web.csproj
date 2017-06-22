@@ -26,5 +26,10 @@
     <ProjectReference Include="..\NetCoreTemplate.Domain\NetCoreTemplate.Domain.csproj" />
     <ProjectReference Include="..\NetCoreTemplate.Logic\NetCoreTemplate.Logic.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\dist\" />
+    <Folder Include="wwwroot\dist\" />
+    <Folder Include="wwwroot\dist\" />
+  </ItemGroup>
 
 </Project>

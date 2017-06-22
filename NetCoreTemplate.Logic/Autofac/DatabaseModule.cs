@@ -1,6 +1,8 @@
 ﻿using Autofac;
 using Microsoft.EntityFrameworkCore;
 using NetCoreTemplate.DataAccess;
+using NetCoreTemplate.DataAccess.Repositories;
+using NetCoreTemplate.Domain.Contracts;
 
 namespace NetCoreTemplate.Logic.Autofac
 {
@@ -17,6 +19,12 @@ namespace NetCoreTemplate.Logic.Autofac
 
             builder.Register(c => new DatabaseContext(optionsBuilder.Options))
                 .InstancePerLifetimeScope();
+
+            //Repositories
+            builder.RegisterType<PhoneRepository>().As<IPhoneRepository>();
+
+            //RepositoryContext
+            builder.RegisterType<RepositoryContext>().As<IRepositoriesContext>();
         }
     }
 }

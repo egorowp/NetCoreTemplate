@@ -1,8 +1,9 @@
 ﻿using System;
+using NetCoreTemplate.Domain.Contracts;
 
 namespace NetCoreTemplate.Domain.Models
 {
-    public class Phone
+    public class Phone : IEntity
     {
         public Guid Id { get; set; }
 

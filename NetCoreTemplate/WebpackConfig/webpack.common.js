@@ -5,7 +5,7 @@ var Path = require("path");
 module.exports = {
     entry: {
         'polyfills': "./src/polyfills.ts",
-        'vendor': "./src/vendor.ts",
+        //'vendor': "./src/vendor.ts",
         'app.bundle': './src/app/main.ts'//,
         //'account.app.bundle': './src/apps/account/account.app.module.ts'
     },
