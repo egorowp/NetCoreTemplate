@@ -10,10 +10,12 @@ namespace NetCoreTemplate.DataAccess.Repositories
     public class PhoneRepository : BaseRepository<Phone>, IPhoneRepository
     {
         private readonly DatabaseContext _dbContext;
+        private readonly ILoggerProvider _loggerProvider;
 
-        public PhoneRepository(DatabaseContext databaseContext) : base(databaseContext)
+        public PhoneRepository(DatabaseContext databaseContext, ILoggerProvider loggerProvider) : base(databaseContext)
         {
             _dbContext = databaseContext;
+            _loggerProvider = loggerProvider;
         }
 
         public Guid AddNew(string name, string company, int price)

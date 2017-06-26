@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Autofac;
+﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
-using NetCoreTemplate.Configuration.Autofac;
+using NetCoreTemplate.Autofac.Autofac;
 using NetCoreTemplate.Domain.DTOs;
 
-namespace NetCoreTemplate.Configuration
+namespace NetCoreTemplate.Autofac
 {
     public class AutofacConfigurator
     {
@@ -21,6 +18,7 @@ namespace NetCoreTemplate.Configuration
             // to dispose of the container at the end of the app,
             // be sure to keep a reference to it as a property or field.
             builder.RegisterModule<ServicesModule>();
+            builder.RegisterModule<ProvidersModule>();
             builder.RegisterModule(new DatabaseModule()
             {
                 ConnectionString = connectionString

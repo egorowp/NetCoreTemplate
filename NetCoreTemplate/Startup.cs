@@ -1,12 +1,10 @@
 ﻿using System;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using NetCoreTemplate.Configuration;
+using NetCoreTemplate.Autofac;
 
 namespace NetCoreTemplate.Web
 {

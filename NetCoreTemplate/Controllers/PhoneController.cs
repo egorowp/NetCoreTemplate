@@ -10,10 +10,12 @@ namespace NetCoreTemplate.Web.Controllers
     public class PhoneController : Controller
     {
         private readonly IPhoneService _phoneService;
-        
-        public PhoneController(IPhoneService phoneService)
+        private readonly ILoggerProvider _loggerProvider;
+
+        public PhoneController(IPhoneService phoneService, ILoggerProvider loggerProvider)
         {
             _phoneService = phoneService;
+            _loggerProvider = loggerProvider;
         }
         
         [HttpGet]
