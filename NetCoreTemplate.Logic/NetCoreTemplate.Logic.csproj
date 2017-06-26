@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\NetCoreTemplate.DataAccess\NetCoreTemplate.DataAccess.csproj" />
     <ProjectReference Include="..\NetCoreTemplate.Domain\NetCoreTemplate.Domain.csproj" />
   </ItemGroup>

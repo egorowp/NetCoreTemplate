@@ -5,12 +5,13 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using NetCoreTemplate.Configuration.Autofac;
+using NetCoreTemplate.Domain.DTOs;
 
 namespace NetCoreTemplate.Configuration
 {
     public class AutofacConfigurator
     {
-        public static IContainer Configure(IServiceCollection services, string connectionString)
+        public static AutofacConfiguratorDto Configure(IServiceCollection services, string connectionString)
         {
             // Create the container builder.
             var builder = new ContainerBuilder();
@@ -27,7 +28,14 @@ namespace NetCoreTemplate.Configuration
 
             builder.Populate(services);
             var applicationContainer = builder.Build();
-            return applicationContainer;
+
+            var result = new AutofacConfiguratorDto {
+                ServiceProvider = new AutofacServiceProvider(applicationContainer),
+                DisposeAction = () => applicationContainer.Dispose()
+                
+                };
+            return result;
+
         }
     }
 }

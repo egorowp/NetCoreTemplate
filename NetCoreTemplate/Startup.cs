@@ -22,7 +22,7 @@ namespace NetCoreTemplate.Web
             this.Configuration = builder.Build();
         }
 
-        public IContainer ApplicationContainer { get; private set; }
+        public Action DisposeAction { get; private set; }
 
         public IConfigurationRoot Configuration { get; private set; }
 
@@ -33,10 +33,11 @@ namespace NetCoreTemplate.Web
             // Add services to the collection.
             services.AddMvc();
 
-            ApplicationContainer = AutofacConfigurator.Configure(services, Configuration.GetConnectionString("DefaultConnection"));
-            // Create the IServiceProvider based on the container.
+            var autofacConfiguratorDto = AutofacConfigurator.Configure(services, Configuration.GetConnectionString("DefaultConnection"));
 
-            return new AutofacServiceProvider(this.ApplicationContainer);
+            DisposeAction = autofacConfiguratorDto.DisposeAction;
+
+            return autofacConfiguratorDto.ServiceProvider;
         }
 
 
@@ -74,7 +75,7 @@ namespace NetCoreTemplate.Web
 
             // If you want to dispose of resources that have been resolved in the
             // application container, register for the "ApplicationStopped" event.
-            appLifetime.ApplicationStopped.Register(() => this.ApplicationContainer.Dispose());
+            appLifetime.ApplicationStopped.Register(DisposeAction);
         }
     }
 }
