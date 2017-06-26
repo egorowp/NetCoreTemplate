@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="1.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NetCoreTemplate.DataAccess\NetCoreTemplate.DataAccess.csproj" />
+    <ProjectReference Include="..\NetCoreTemplate.Domain\NetCoreTemplate.Domain.csproj" />
+    <ProjectReference Include="..\NetCoreTemplate.Logic\NetCoreTemplate.Logic.csproj" />
+  </ItemGroup>
+
+</Project>

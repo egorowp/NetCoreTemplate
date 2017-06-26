@@ -4,7 +4,7 @@ using NetCoreTemplate.DataAccess;
 using NetCoreTemplate.DataAccess.Repositories;
 using NetCoreTemplate.Domain.Contracts;
 
-namespace NetCoreTemplate.Logic.Autofac
+namespace NetCoreTemplate.Configuration.Autofac
 {
     public class DatabaseModule : Module
     {

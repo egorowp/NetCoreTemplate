@@ -2,7 +2,7 @@
 using NetCoreTemplate.Domain.Contracts;
 using NetCoreTemplate.Logic.Services;
 
-namespace NetCoreTemplate.Logic.Autofac
+namespace NetCoreTemplate.Configuration.Autofac
 {
     public class ServicesModule : Module
     {

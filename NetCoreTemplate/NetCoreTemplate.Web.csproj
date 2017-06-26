@@ -23,6 +23,7 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NetCoreTemplate.Configuration\NetCoreTemplate.Configuration.csproj" />
     <ProjectReference Include="..\NetCoreTemplate.Domain\NetCoreTemplate.Domain.csproj" />
     <ProjectReference Include="..\NetCoreTemplate.Logic\NetCoreTemplate.Logic.csproj" />
   </ItemGroup>

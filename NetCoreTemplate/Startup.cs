@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using NetCoreTemplate.Logic.Autofac;
+using NetCoreTemplate.Configuration;
 
 namespace NetCoreTemplate.Web
 {
@@ -33,24 +33,13 @@ namespace NetCoreTemplate.Web
             // Add services to the collection.
             services.AddMvc();
 
-            // Create the container builder.
-            var builder = new ContainerBuilder();
-
-            // Register dependencies, populate the services from
-            // the collection, and build the container. If you want
-            // to dispose of the container at the end of the app,
-            // be sure to keep a reference to it as a property or field.
-            builder.RegisterModule<ServicesModule>();
-            builder.RegisterModule( new DatabaseModule()
-            {
-                ConnectionString = Configuration.GetConnectionString("DefaultConnection")
-            });
-            
-            builder.Populate(services);
-            this.ApplicationContainer = builder.Build();
+            ApplicationContainer = AutofacConfigurator.Configure(services, Configuration.GetConnectionString("DefaultConnection"));
             // Create the IServiceProvider based on the container.
+
             return new AutofacServiceProvider(this.ApplicationContainer);
         }
+
+
 
         // Configure is where you add middleware. This is called after
         // ConfigureServices. You can use IApplicationBuilder.ApplicationServices
