@@ -2,7 +2,7 @@
 using NetCoreTemplate.Domain.Parameters;
 using NetCoreTemplate.Domain.ViewModels;
 
-namespace NetCoreTemplate.Domain.Contracts
+namespace NetCoreTemplate.Domain.Contracts.Repositories
 {
     public interface IPhoneRepository
     {

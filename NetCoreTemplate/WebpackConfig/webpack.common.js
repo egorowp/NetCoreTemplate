@@ -5,9 +5,7 @@ var Path = require("path");
 module.exports = {
     entry: {
         'polyfills': "./src/polyfills.ts",
-        //'vendor': "./src/vendor.ts",
-        'app.bundle': './src/app/main.ts'//,
-        //'account.app.bundle': './src/apps/account/account.app.module.ts'
+        'app.bundle': './src/app/main.ts'
     },
 
     resolve: {
@@ -27,18 +25,7 @@ module.exports = {
             {
                 test: /\.html$/,
                 loader: "html-loader"
-            }//,
-            //{
-            //    test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
-            //    loader: "file-loader?name=assets/[name].[hash].[ext]"
-            //},
-            //{
-            //    test: /\.(css|scss)$/,
-            //    use: ["to-string-loader"].concat(ExtractTextPlugin.extract({
-            //        fallback: "style-loader",
-            //        use: ["css-loader?sourceMap", 'sass-loader?sourceMap']
-            //    }))
-            //}
+            }
         ]
     },
 
@@ -49,10 +36,6 @@ module.exports = {
             /angular(\\|\/)core(\\|\/)@angular/,
             Path.resolve(__dirname, "src"),
             {} // a map of your routes
-        )//,
-
-        //new Webpack.optimize.CommonsChunkPlugin({
-        //    name: ["main.app.bundle", "account.app.bundle", "vendor", "polyfills"]
-        //})
+        )
     ]
 };

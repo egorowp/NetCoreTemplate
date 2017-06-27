@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using NetCoreTemplate.DataAccess;
 using NetCoreTemplate.DataAccess.Repositories;
 using NetCoreTemplate.Domain.Contracts;
+using NetCoreTemplate.Domain.Contracts.Repositories;
 
 namespace NetCoreTemplate.Autofac.Autofac
 {

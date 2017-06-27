@@ -1,4 +1,5 @@
 ﻿using NetCoreTemplate.Domain.Contracts;
+using NetCoreTemplate.Domain.Contracts.Repositories;
 
 namespace NetCoreTemplate.DataAccess.Repositories
 {

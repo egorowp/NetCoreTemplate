@@ -30,7 +30,6 @@ namespace NetCoreTemplate.Autofac
             var result = new AutofacConfiguratorDto {
                 ServiceProvider = new AutofacServiceProvider(applicationContainer),
                 DisposeAction = () => applicationContainer.Dispose()
-                
                 };
             return result;
 

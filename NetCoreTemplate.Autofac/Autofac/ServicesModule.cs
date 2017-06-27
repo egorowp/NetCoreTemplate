@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using NetCoreTemplate.Domain.Contracts;
+using NetCoreTemplate.Domain.Contracts.Services;
 using NetCoreTemplate.Logic.Services;
 
 namespace NetCoreTemplate.Autofac.Autofac

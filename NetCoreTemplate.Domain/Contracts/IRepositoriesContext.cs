@@ -1,4 +1,6 @@
-﻿namespace NetCoreTemplate.Domain.Contracts
+﻿using NetCoreTemplate.Domain.Contracts.Repositories;
+
+namespace NetCoreTemplate.Domain.Contracts
 {
     public interface IRepositoriesContext
     {

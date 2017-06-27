@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using NetCoreTemplate.Domain.Contracts;
+using NetCoreTemplate.Domain.Contracts.Services;
 using NetCoreTemplate.Domain.Parameters;
 using NetCoreTemplate.Domain.ViewModels;
 using Newtonsoft.Json;

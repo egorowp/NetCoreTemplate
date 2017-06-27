@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using NetCoreTemplate.DataAccess;
+using NetCoreTemplate.Domain.Contracts.Services;
 using NetCoreTemplate.Domain.Models;
 using NetCoreTemplate.Domain.Parameters;
 using NetCoreTemplate.Domain.ViewModels;

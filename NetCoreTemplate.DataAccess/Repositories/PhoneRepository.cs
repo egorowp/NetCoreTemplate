@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using NetCoreTemplate.Domain.Contracts;
+using NetCoreTemplate.Domain.Contracts.Repositories;
 using NetCoreTemplate.Domain.Models;
 using NetCoreTemplate.Domain.Parameters;
 using NetCoreTemplate.Domain.ViewModels;
