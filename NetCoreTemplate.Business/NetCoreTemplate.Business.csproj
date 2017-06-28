@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PostSharp" Version="5.0.27-rc" />
+    <PackageReference Include="PostSharp.Patterns.Diagnostics" Version="5.0.27-rc" />
+    <PackageReference Include="PostSharp.Patterns.Diagnostics.NLog" Version="5.0.27-rc" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NetCoreTemplate.Business.Contracts\NetCoreTemplate.Business.Contracts.csproj" />
+    <ProjectReference Include="..\NetCoreTemplate.DataAccess.Contracts\NetCoreTemplate.DataAccess.Contracts.csproj" />
+    <ProjectReference Include="..\NetCoreTemplate.DataAccess.EF\NetCoreTemplate.DataAccess.EF.csproj" />
+    <ProjectReference Include="..\NetCoreTemplate.Domain\NetCoreTemplate.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
