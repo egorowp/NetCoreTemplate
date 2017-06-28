@@ -1,9 +1,6 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
-using NetCoreTemplate.Domain.Contracts;
+﻿using Microsoft.AspNetCore.Mvc;
 using NetCoreTemplate.Domain.Contracts.Services;
 using NetCoreTemplate.Domain.Parameters;
-using NetCoreTemplate.Domain.ViewModels;
 using Newtonsoft.Json;
 
 namespace NetCoreTemplate.Web.Controllers
@@ -11,12 +8,10 @@ namespace NetCoreTemplate.Web.Controllers
     public class PhoneController : Controller
     {
         private readonly IPhoneService _phoneService;
-        private readonly ILoggerProvider _loggerProvider;
 
-        public PhoneController(IPhoneService phoneService, ILoggerProvider loggerProvider)
+        public PhoneController(IPhoneService phoneService)
         {
             _phoneService = phoneService;
-            _loggerProvider = loggerProvider;
         }
         
         [HttpGet]

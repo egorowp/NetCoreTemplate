@@ -3,8 +3,9 @@ using NetCoreTemplate.Domain.Models;
 
 namespace NetCoreTemplate.Domain.ViewModels
 {
-    public class PhoneViewModel
+    public class PhoneViewModel : Serializable
     {
+
         public PhoneViewModel()
         {
             

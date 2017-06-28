@@ -4,6 +4,8 @@ using System.Reflection;
 using NetCoreTemplate.Domain.Contracts;
 using NLog;
 using NLog.Config;
+using PostSharp.Patterns.Diagnostics;
+using PostSharp.Patterns.Diagnostics.Backends.NLog;
 
 namespace NetCoreTemplate.Logger
 {
@@ -13,6 +15,9 @@ namespace NetCoreTemplate.Logger
         {
             string assemblyFolder = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             LogManager.Configuration = new XmlLoggingConfiguration(assemblyFolder + "\\nlog.config", true);
+
+            var nlog = new NLogLoggingBackend() { Options = { GetLogger = source => LogManager.GetLogger("Default") } };
+            LoggingServices.DefaultBackend = nlog;
         }
 
         private readonly NLog.Logger _logger = LogManager.GetLogger("allfile");

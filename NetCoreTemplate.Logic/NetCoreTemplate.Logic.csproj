@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="PostSharp" Version="5.0.27-rc" />
+    <PackageReference Include="PostSharp.Patterns.Diagnostics" Version="5.0.27-rc" />
+    <PackageReference Include="PostSharp.Patterns.Diagnostics.NLog" Version="5.0.27-rc" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\NetCoreTemplate.DataAccess\NetCoreTemplate.DataAccess.csproj" />
     <ProjectReference Include="..\NetCoreTemplate.Domain\NetCoreTemplate.Domain.csproj" />
   </ItemGroup>

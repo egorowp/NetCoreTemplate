@@ -1,11 +1,9 @@
 ﻿using NetCoreTemplate.Domain.Contracts;
 using System;
-using System.Linq;
-using NetCoreTemplate.DataAccess;
 using NetCoreTemplate.Domain.Contracts.Services;
-using NetCoreTemplate.Domain.Models;
 using NetCoreTemplate.Domain.Parameters;
 using NetCoreTemplate.Domain.ViewModels;
+using PostSharp.Patterns.Diagnostics;
 
 namespace NetCoreTemplate.Logic.Services
 {
@@ -18,21 +16,25 @@ namespace NetCoreTemplate.Logic.Services
             _repositoriesContext = repositoriesContext;
         }
 
+        [Log]
         public Guid AddNew(string name, string company, int price)
         {
             return _repositoriesContext.PhoneRepository.AddNew(name, company, price);
         }
 
+        [Log]
         public PhoneViewModel[] GetAll()
         {
             return _repositoriesContext.PhoneRepository.GetAll();
         }
 
+        [Log]
         public PhoneViewModel Save(SavePhoneParams parameters)
         {
             return _repositoriesContext.PhoneRepository.Save(parameters);
         }
 
+        [Log]
         public bool Delete(DeleteParams parameters)
         {
             return _repositoriesContext.PhoneRepository.Delete(parameters);

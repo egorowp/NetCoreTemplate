@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.4.1" />
+    <PackageReference Include="PostSharp" Version="5.0.27-rc" />
+    <PackageReference Include="PostSharp.Patterns.Diagnostics.NLog" Version="5.0.27-rc" />
   </ItemGroup>
 
   <ItemGroup>
