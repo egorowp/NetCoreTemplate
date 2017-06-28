@@ -68750,8 +68750,7 @@ var PhonesService = (function () {
         console.log("PhoneService initialization ...");
     }
     PhonesService.prototype.getPhones = function () {
-        return this.http.get("./phone")
-            .map(function (res) { return res.json(); });
+        return this.http.post("./phone", "").map(function (res) { return res.json(); });
     };
     PhonesService.prototype.savePhone = function (phone) {
         return this.http.post("phone/save", phone);

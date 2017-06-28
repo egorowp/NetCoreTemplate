@@ -10,8 +10,7 @@ export class PhonesService {
     }
 
     getPhones() {
-        return this.http.get("./phone")
-            .map(res => res.json());
+        return this.http.post("./phone", "").map(res => res.json());
     }
 
     savePhone(phone: Phone) {

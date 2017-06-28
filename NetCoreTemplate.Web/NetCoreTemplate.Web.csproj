@@ -22,7 +22,7 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NetCoreTemplate.BusinessLogic.Contracts\NetCoreTemplate.Business.Contracts.csproj" />
+    <ProjectReference Include="..\NetCoreTemplate.Business.Contracts\NetCoreTemplate.Business.Contracts.csproj" />
     <ProjectReference Include="..\NetCoreTemplate.IoC.Autofac\NetCoreTemplate.IoC.Autofac.csproj" />
     <ProjectReference Include="..\NetCoreTemplate.Business\NetCoreTemplate.Business.csproj" />
   </ItemGroup>

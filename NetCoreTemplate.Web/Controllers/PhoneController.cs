@@ -14,21 +14,18 @@ namespace NetCoreTemplate.Web.Controllers
             _phoneService = phoneService;
         }
         
-        [HttpGet]
         public ActionResult Index()
         {
             var phone = _phoneService.GetAll();
             return Content(JsonConvert.SerializeObject(phone));
         }
         
-        [HttpPost]
         public ActionResult Save([FromBody] SavePhoneParams parameters)
         {
             var phone = _phoneService.Save(parameters);
             return Content(JsonConvert.SerializeObject(phone));
         }
         
-        [HttpPost]
         public ActionResult Delete([FromBody] DeleteParams parameters)
         {
              _phoneService.Delete(parameters);
