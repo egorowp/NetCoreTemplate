@@ -1,13 +1,18 @@
 ﻿import { ModuleWithProviders } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
-import { PhonesComponent } from "./components/phones.component";
+import { PhoneGridComponent } from "./phone/phone.grid.component";
+import { PhoneFormComponent } from "./phone/phone.form.component";
 
 const appRoutes: Routes = [
-  {
-    path: "",
-    component: PhonesComponent
-  }
+    {
+        path: "",
+        component: PhoneGridComponent
+    },
+    {
+        path: "viewphone",
+        component: PhoneFormComponent
+    }
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);

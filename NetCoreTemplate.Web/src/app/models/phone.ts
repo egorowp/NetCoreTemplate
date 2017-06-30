@@ -6,3 +6,10 @@
         public Price: number
     ) { }
 }
+
+export interface IPhone {
+    Id: string;
+    Company: string;
+    Name: string;
+    Price: number;
+}
