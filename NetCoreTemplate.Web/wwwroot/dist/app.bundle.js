@@ -41567,7 +41567,7 @@ var PhoneGridComponent = (function () {
         this.router = router;
         debugger;
         this.selectedPhoneId = "00000000-0000-0000-0000-000000000000";
-        this.http.post("./phone", "")
+        this.http.post("api/phones/index", "")
             .map(function (res) { return res.json(); })
             .subscribe(function (ps) { _this.phones = ps; });
     }
@@ -41577,7 +41577,7 @@ var PhoneGridComponent = (function () {
     };
     PhoneGridComponent.prototype.onPhoneDelete = function (i) {
         var _this = this;
-        this.http.post("phone/delete", this.phones[i])
+        this.http.post("api/phone/delete", this.phones[i])
             .map(function (res) { return res.json(); })
             .subscribe(function (u) { return _this.phones.splice(i, 1); });
         event.stopPropagation();

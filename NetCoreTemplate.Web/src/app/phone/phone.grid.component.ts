@@ -24,7 +24,7 @@ export class PhoneGridComponent {
         debugger;
         this.selectedPhoneId = "00000000-0000-0000-0000-000000000000";
 
-        this.http.post("./phone", "")
+        this.http.post("api/phones/index", "")
             .map(res => res.json())
             .subscribe(ps => {this.phones = ps;});
     }
@@ -35,7 +35,7 @@ export class PhoneGridComponent {
     }
 
     onPhoneDelete(i: number) {
-        this.http.post("phone/delete", this.phones[i])
+        this.http.post("api/phone/delete", this.phones[i])
             .map(res => res.json())
             .subscribe((u: any) => this.phones.splice(i, 1));
         event.stopPropagation();

@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.SpaServices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -54,6 +53,12 @@ namespace NetCoreTemplate.Web
             loggerFactory.AddConsole(this.Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            var angularRoutes = new[]
+            {
+                "/default",
+                "/home"
+            };
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -71,7 +76,13 @@ namespace NetCoreTemplate.Web
                 routes.MapRoute(
                     name: "Default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-                routes.MapRoute("spa-fallback", "{*anything}", new { controller = "Home", action = "Index" });
+                routes.MapRoute(
+                    name: "API Default",
+                    template: "api/{controller}/{action}/{id?}"
+                );
+                routes.MapSpaFallbackRoute(
+                    name: "spa-fallback",
+                    defaults: new { controller = "Home", action = "Index" });
             });
 
             // If you want to dispose of resources that have been resolved in the
