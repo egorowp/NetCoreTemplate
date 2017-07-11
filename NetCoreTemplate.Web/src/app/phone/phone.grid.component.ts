@@ -1,60 +1,45 @@
-﻿import { Component, Injectable  } from '@angular/core';
-import { PhonesService } from './phones.service'
+﻿import { Component } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router'
+import { Http } from "@angular/http";
+
+import "rxjs/add/operator/map";
+
 import { Phone } from "../models/phone";
-import { PhoneFormComponent } from "./phone.form.component";
-
-import { MdDialogRef, MdDialog, MdDialogConfig } from '@angular/material';
-
-//import { DialogRef, ModalComponent } from 'angular2-modal';
-//import { Modal } from 'angular2-modal/plugins/bootstrap';
-
-declare var $: any;
 
 @Component({
-    moduleId: module.id.toString(),
-    selector: 'app',
-    templateUrl: 'phone.grid.component.html',
-    providers: [PhonesService]
+    templateUrl: 'phone.grid.component.html'
 })
-@Injectable()
+
 export class PhoneGridComponent {
 
-    phones: Phone[];
+    phones : Phone[];
 
-    constructor(private phonesServices: PhonesService, private dialog: MdDialog) {
-        this.phonesServices.selectedPhone = new Phone("", "", "", 0);
-        this.phonesServices.getPhones().subscribe((u: any) => {
-            this.phones = u;
-        });
-        //modal.defaultViewContainer = vcRef;
-    }
-    onRowClick(i: number) {
-        this.phonesServices.selectedPhone = this.phones[i];
+    private selectedPhoneId: string;
+
+    constructor(
+        private http: Http,
+        private route: ActivatedRoute,
+        private router: Router
+    ) {
         debugger;
-        var dialogRef = this.dialog.open(PhoneFormComponent);
-        dialogRef.componentInstance.selectedPhone = this.phonesServices.selectedPhone;
-        //this.modal.open(PhoneFormComponent, new PhoneFormComponentData(this.phonesServices.selectedPhone));
-        //PhoneFormComponent.open();
-        //myModal.open();
-        //$('#phonePopup').modal('show');
+        this.selectedPhoneId = "00000000-0000-0000-0000-000000000000";
+
+        this.http.post("./phone", "")
+            .map(res => res.json())
+            .subscribe(ps => {this.phones = ps;});
     }
-    onPopupSubmit(a: Object, b: Object) {
-        if (!this.phones.includes(this.phonesServices.selectedPhone)) {
-            this.phones.push(this.phonesServices.selectedPhone);
-        }
-        this.phonesServices.savePhone(this.phonesServices.selectedPhone).subscribe((u: any) => { });
-        $('#phonePopup').modal('hide');
+
+    onRowClick(i: number) {
+        this.selectedPhoneId = this.phones[i].Id;
+        this.router.navigate(['phone', 'edit', this.selectedPhoneId]);
     }
+
     onPhoneDelete(i: number) {
-        this.phonesServices.deletePhone(this.phones[i]).subscribe((u: any) => {
-            this.phones.splice(i, 1);
-        });
+        this.http.post("phone/delete", this.phones[i])
+            .map(res => res.json())
+            .subscribe((u: any) => this.phones.splice(i, 1));
         event.stopPropagation();
         return false;
-    }
-    onNewPhone() {
-        this.phonesServices.selectedPhone = new Phone("00000000-0000-0000-0000-000000000000", "", "", 0);
-        $('#phonePopup').modal('show');
     }
 }
 

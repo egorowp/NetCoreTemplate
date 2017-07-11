@@ -12,11 +12,6 @@ namespace NetCoreTemplate.DataAccess.EF
         {
         }
 
-        public DatabaseContext() : base()
-        {
-            
-        }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=(local);Initial Catalog=NetCoreTempale;User Id=sa;Password=password");

@@ -1,24 +1,46 @@
 ﻿import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
-
-// modal
-//import { ModalModule } from 'angular2-modal';
-//import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
-import { MdDialogModule, MdButtonModule } from '@angular/material';
+import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-//import { AppComponent } from "./app.component";
+import { Router } from '@angular/router';
+
+// components
+import { AppComponent } from "./app.component";
 import { PhoneGridComponent } from "./phone/phone.grid.component";
 import { PhoneFormComponent } from "./phone/phone.form.component";
 
-import { routing  } from "./app.routing";
+import { AddressModule } from "./address/address.module";
+
+// modules
+import { AppRoutingModule } from "./app.routing";
+
+import { DialogService } from './dialog.service';
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, HttpModule, routing, MdDialogModule, MdButtonModule, BrowserAnimationsModule],// ModalModule.forRoot(), BootstrapModalModule],
-    declarations: [PhoneGridComponent, PhoneFormComponent],//AppComponent,
-    entryComponents: [PhoneFormComponent],
-    bootstrap: [PhoneGridComponent]
+    imports: [
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        AddressModule
+    ],
+    declarations: [
+        AppComponent,
+        PhoneGridComponent,
+        PhoneFormComponent
+    ],
+    providers: [
+        DialogService
+    ],
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+    // Diagnostic only: inspect router configuration
+    constructor(router: Router) {
+        console.log('Routes: ', JSON.stringify(router.config, undefined, 2));
+    }
+}

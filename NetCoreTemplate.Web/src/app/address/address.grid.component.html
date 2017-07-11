@@ -1,24 +1,24 @@
 ﻿
 <div class="container">
-    <h1>Phones</h1>
-    <a class="btn btn-info btn-lg" routerLink="/phone/add" >New Phone</a>
+    <h1>Addresses</h1>
+    <a class="btn btn-info btn-lg" routerLink="/add" >New Address</a>
 
     <table class="table table-striped">
         <thead>
         <tr>
             <th>#</th>
-            <th>Company</th>
-            <th>Name</th>
-            <th>Price</th>
+            <th>Country</th>
+            <th>City</th>
+            <th>State</th>
         </tr>
         </thead>
-        <tbody *ngFor="let phone of phones;let i = index">
+        <tbody *ngFor="let address of addresses;let i = index">
         <tr (click)="onRowClick(i)">
             <td>{{i}}</td>
             <td> {{phone.Company}}</td>
             <td>{{phone.Name}}</td>
             <td>{{phone.Price}}</td>
-            <td class="close" (click)="onPhoneDelete(i);">x</td>
+            <td class="close" (click)="onAddressDelete(i);">x</td>
         </tr>
         </tbody>
     </table>

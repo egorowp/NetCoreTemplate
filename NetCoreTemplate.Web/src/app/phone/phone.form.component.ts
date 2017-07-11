@@ -1,46 +1,60 @@
-﻿import { Component, Inject } from '@angular/core';
+﻿import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Router, ActivatedRoute } from '@angular/router';
 
-//import { DialogRef, ModalComponent } from 'angular2-modal';
-//import { BSModalContext } from 'angular2-modal/plugins/bootstrap';
-
-
-import { MdDialogRef } from '@angular/material';
-
-//export class PhoneFormComponentData extends BSModalContext {
-//    selectedPhone: Phone;
-
-//    constructor(public phone : Phone) {
-//        super();
-//        this.selectedPhone = phone;
-//    }
-//}
-
-import {PhonesService } from "./phones.service";
+//import { PhoneGridComponent } from "./phone.grid.component";
 import { Phone}  from "../models/phone";
 
 @Component({
     moduleId: module.id.toString(),
-    selector: 'modal-content',
     templateUrl: 'phone.form.component.html',
-    providers: [PhonesService]
+    //styleUrls: ['phone.form.component.less']
 })
 
-export class PhoneFormComponent {
+export class PhoneFormComponent implements OnInit, OnDestroy{
 
-    public selectedPhone: Phone;
+    //public selectedPhone: Phone;
+    private selectedPhoneId: string;
 
-    constructor(public dialog: MdDialogRef<PhoneFormComponent>, @Inject(MdDialogRef) public data: Phone) {
+    constructor(
+        //private phonesServices: PhonesService,
+        //private phonesGridComponent: PhoneGridComponent,
+        private route: ActivatedRoute,
+        private router: Router
+    ) {
+        debugger;
     }
+
+    ngOnInit(): void {
+        debugger;
+        var selectedPhoneId = this.route.snapshot.params['id'];
+        //this.selectedPhone = this.phonesServices.selectedPhone;
+        //throw new Error("Not implemented");
+    }
+
+    ngOnDestroy(): void {
+        //throw new Error("Not implemented");
+    }
+    
+    //@HostListener("window:keydown", ["$event"])
+    //public keyboardInput(event: any) {
+    //    if (event.keyCode === 27) {
+    //        this.router.navigate(["/"]);
+    //    }
+    //}
 
     onPopupSubmit(a: Object, b: Object) {
-        debugger;
-        //if (!this.phones.includes(this.selectedPhone)) {
+        //this.phonesServices.savePhone(this.selectedPhone).subscribe((u: any) => { });
+        //if (!this.phonesGridComponent.phones.includes(this.selectedPhone)) {
         //    this.phones.push(this.selectedPhone);
         //}
-        this.dialog.close();
-        //this.phonesServices.savePhone(this.selectedPhone).subscribe((u: any) => { });
-        //$('#phonePopup').modal('hide');
+        //return this.http.post("phone/save", phone);
+        this.router.navigate(['phone']);
     }
+
+    onClose(a: Object, b: Object) {
+        this.router.navigate(['phone']);
+    }
+
 }
 
 
