@@ -13,5 +13,7 @@ namespace NetCoreTemplate.Business.Contracts
         PhoneViewModel Save(SavePhoneParams parameters);
 
         bool Delete(DeleteParams parameters);
+
+        PhoneViewModel Get(GetParams parameters);
     }
 }

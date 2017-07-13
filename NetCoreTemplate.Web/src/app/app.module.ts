@@ -8,13 +8,13 @@ import { Router } from '@angular/router';
 
 // components
 import { AppComponent } from "./app.component";
-import { PhoneGridComponent } from "./phone/phone.grid.component";
-import { PhoneFormComponent } from "./phone/phone.form.component";
 
 import { AddressModule } from "./address/address.module";
+import { PhoneModule } from "./phone/phone.module";
+import { PageNotFoundComponent } from './not-found.component';
 
 // modules
-import { AppRoutingModule } from "./app.routing";
+import { AppRoutingModule } from "./app.routing.module";
 
 import { DialogService } from './dialog.service';
 
@@ -24,14 +24,14 @@ import { DialogService } from './dialog.service';
         FormsModule,
         ReactiveFormsModule,
         HttpModule,
+        AddressModule,
+        PhoneModule,       
         AppRoutingModule,
-        BrowserAnimationsModule,
-        AddressModule
+        BrowserAnimationsModule
     ],
     declarations: [
         AppComponent,
-        PhoneGridComponent,
-        PhoneFormComponent
+        PageNotFoundComponent
     ],
     providers: [
         DialogService

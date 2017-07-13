@@ -3,7 +3,7 @@ import { CommonModule} from "@angular/common";
 import { FormsModule } from "@angular/forms";
 
 //// components
-import { AddressGridComponent } from "./address.grid.component";
+import { AddressGridComponent } from "./address-grid.component";
 
 //// modules
 import { AddressRoutingModule } from "./address.routing.module";

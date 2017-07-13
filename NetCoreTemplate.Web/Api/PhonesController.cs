@@ -27,6 +27,13 @@ namespace NetCoreTemplate.Web.Api
             return Content(JsonConvert.SerializeObject(phones));
 
         }
+        [HttpPost("get")]
+        public ActionResult Get([FromBody] GetParams parameters)
+        {
+            var phone = _phoneService.Get(parameters);
+            return Content(JsonConvert.SerializeObject(phone));
+
+        }
 
         [HttpPost("save")]
         public ActionResult Save([FromBody] SavePhoneParams parameters)

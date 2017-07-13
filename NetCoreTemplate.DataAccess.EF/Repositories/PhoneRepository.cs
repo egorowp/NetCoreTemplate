@@ -80,5 +80,22 @@ namespace NetCoreTemplate.DataAccess.EF.Repositories
             }
             return true;
         }
+
+        public PhoneViewModel Get(GetParams parameters)
+        {
+            var phone = base.Get(parameters.Id);
+            if (phone != null)
+            {
+                var result = new PhoneViewModel
+                {
+                    Id = phone.Id,
+                    Company = phone.Company,
+                    Name = phone.Name,
+                    Price = phone.Price
+                };
+                return result;
+            }
+            return null;
+        }
     }
 }

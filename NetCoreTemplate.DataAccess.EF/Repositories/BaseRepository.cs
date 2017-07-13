@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Microsoft.EntityFrameworkCore;
 using NetCoreTemplate.DataAccess.Contracts;
 using NetCoreTemplate.Domain;
@@ -22,6 +23,7 @@ namespace NetCoreTemplate.DataAccess.EF.Repositories
         {
             DataContext = databaseContext;
             BaseQuery = DataContext.Set<T>();
+            BaseDbSet = DataContext.Set<T>();
             Logger = loggerProvider;
         }
 

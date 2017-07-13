@@ -4,7 +4,7 @@ import { AddressService } from './address.service'
 import { Address } from "../models/address";
 
 @Component({
-    templateUrl: 'address.grid.component.html'
+    templateUrl: 'address-grid.component.html'
 })
 
 export class AddressGridComponent {

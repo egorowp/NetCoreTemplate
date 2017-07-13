@@ -39,5 +39,11 @@ namespace NetCoreTemplate.Business.Services
         {
             return _repositoriesContext.PhoneRepository.Delete(parameters);
         }
+
+        [Log]
+        public PhoneViewModel Get(GetParams parameters)
+        {
+            return _repositoriesContext.PhoneRepository.Get(parameters);
+        }
     }
 }

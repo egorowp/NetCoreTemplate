@@ -1,7 +1,7 @@
 ﻿import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
-import { AddressGridComponent } from "./address.grid.component";
+import { AddressGridComponent } from "./address-grid.component";
 
 const routes: Routes = [
     {
