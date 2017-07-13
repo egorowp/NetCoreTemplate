@@ -17,6 +17,7 @@ import { PageNotFoundComponent } from './not-found.component';
 import { AppRoutingModule } from "./app.routing.module";
 
 import { DialogService } from './dialog.service';
+import { EventsService } from './events.service';
 
 @NgModule({
     imports: [
@@ -34,7 +35,8 @@ import { DialogService } from './dialog.service';
         PageNotFoundComponent
     ],
     providers: [
-        DialogService
+        DialogService,
+        EventsService
     ],
     bootstrap: [AppComponent]
 })
