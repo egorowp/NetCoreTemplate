@@ -2,11 +2,11 @@
 import { CommonModule} from "@angular/common";
 import { FormsModule } from "@angular/forms";
 
-//// components
+// components
 import { PhoneGridComponent } from "./phone-grid.component";
 import { PhoneFormComponent } from "./phone-form.component";
 
-//// modules
+// modules
 import { PhoneRoutingModule } from "./phone.routing.module";
 
 //services

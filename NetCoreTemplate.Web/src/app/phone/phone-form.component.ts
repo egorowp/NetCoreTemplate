@@ -6,7 +6,6 @@ import { Phone } from "../models/phone";
 import { PhoneService } from './phone.service';
 import { EventsService } from '../events.service';
 
-
 @Component({
     moduleId: module.id.toString(),
     selector:"phone-form",

@@ -6,20 +6,6 @@ import { Entity } from "../models/entity";
 
 @Injectable()
 export class PhoneService {
-
-    //private extractData(res: Response) {
-    //    let body = res.json();
-    //    return body || {};
-    //}
-    //private handleErrorObservable(error: Response | any) {
-    //    console.error(error.message || error);
-    //    return Observable.throw(error.message || error);
-    //}
-    //private handleErrorPromise(error: Response | any) {
-    //    console.error(error.message || error);
-    //    return Promise.reject(error.message || error);
-    //}
-
     constructor(private http: Http) {
         console.log("PhoneService initialization ...");
     }

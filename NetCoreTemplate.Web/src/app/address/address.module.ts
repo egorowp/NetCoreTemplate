@@ -2,10 +2,10 @@
 import { CommonModule} from "@angular/common";
 import { FormsModule } from "@angular/forms";
 
-//// components
+// components
 import { AddressGridComponent } from "./address-grid.component";
 
-//// modules
+// modules
 import { AddressRoutingModule } from "./address.routing.module";
 
 import { AddressService } from './address.service';
@@ -18,8 +18,6 @@ import { AddressService } from './address.service';
     ],
     declarations: [
         AddressGridComponent
-        //PhoneGridComponent,
-        //PhoneFormComponent
     ],
     providers: [
         AddressService

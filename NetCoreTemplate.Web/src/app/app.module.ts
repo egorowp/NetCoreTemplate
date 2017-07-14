@@ -3,20 +3,17 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { Router } from '@angular/router';
 
 // components
 import { AppComponent } from "./app.component";
 
-import { AddressModule } from "./address/address.module";
-import { PhoneModule } from "./phone/phone.module";
-import { PageNotFoundComponent } from './not-found.component';
-
 // modules
 import { AppRoutingModule } from "./app.routing.module";
+import { AddressModule } from "./address/address.module";
+import { PhoneModule } from "./phone/phone.module";
 
-import { DialogService } from './dialog.service';
+//services
 import { EventsService } from './events.service';
 
 @NgModule({
@@ -31,11 +28,9 @@ import { EventsService } from './events.service';
         BrowserAnimationsModule
     ],
     declarations: [
-        AppComponent,
-        PageNotFoundComponent
+        AppComponent
     ],
     providers: [
-        DialogService,
         EventsService
     ],
     bootstrap: [AppComponent]
