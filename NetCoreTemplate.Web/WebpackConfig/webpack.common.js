@@ -1,11 +1,10 @@
 ﻿var Webpack = require("webpack");
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var Path = require("path");
 
 module.exports = {
     entry: {
-        'polyfills': "./src/polyfills.ts",
-        'app.bundle': './src/app/main.ts'
+        'polyfills': "./Scripts/polyfills.ts",
+        'app.bundle': './Scripts/app/main.ts'
     },
 
     resolve: {
@@ -35,12 +34,10 @@ module.exports = {
     },
 
     plugins: [
-        // Workaround for angular/angular#11580
         new Webpack.ContextReplacementPlugin(
-            // The (\\|\/) piece accounts for path separators in *nix and Windows
             /angular(\\|\/)core(\\|\/)@angular/,
             Path.resolve(__dirname, "src"),
-            {} // a map of your routes
+            {} 
         )
     ]
 };

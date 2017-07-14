@@ -1,51 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using NetCoreTemplate.Business.Contracts;
+﻿using Microsoft.AspNetCore.Mvc;
+using NetCoreTemplate.Business.Contracts.Managers;
 using NetCoreTemplate.Domain.Parameters;
-using NetCoreTemplate.Domain.ViewModels;
 using Newtonsoft.Json;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace NetCoreTemplate.Web.Api
 {
     [Route("api/[controller]")]
     public class PhonesController : Controller
     {
-        private readonly IPhoneService _phoneService;
-        public PhonesController(IPhoneService phoneService)
+        private readonly IPhoneManager _phoneManager;
+        public PhonesController(IPhoneManager phoneManager)
         {
-            _phoneService = phoneService;
+            _phoneManager = phoneManager;
         }
-        [HttpPost("index")]
+
+        [HttpPost("[action]")]
         public ActionResult Index()
         {
-            var phones = _phoneService.GetAll();
+            var phones = _phoneManager.GetAll();
             return Content(JsonConvert.SerializeObject(phones));
-
         }
-        [HttpPost("get")]
-        public ActionResult Get([FromBody] GetParams parameters)
+
+        [HttpPost("[action]")]
+        public ActionResult Get([FromBody] IdParams parameters)
         {
-            var phone = _phoneService.Get(parameters);
+            var phone = _phoneManager.Get(parameters);
             return Content(JsonConvert.SerializeObject(phone));
-
         }
 
-        [HttpPost("save")]
+        [HttpPost("[action]")]
         public ActionResult Save([FromBody] SavePhoneParams parameters)
         {
-            var phone = _phoneService.Save(parameters);
+            var phone = _phoneManager.Save(parameters);
             return Content(JsonConvert.SerializeObject(phone));
         }
 
-        [HttpPost("delete")]
-        public ActionResult Delete([FromBody] DeleteParams parameters)
+        [HttpPost("[action]")]
+        public ActionResult Delete([FromBody] IdParams parameters)
         {
-            _phoneService.Delete(parameters);
+            _phoneManager.Delete(parameters);
             return Content(JsonConvert.SerializeObject(true));
         }
     }

@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Microsoft.EntityFrameworkCore;
 using NetCoreTemplate.DataAccess.Contracts;
+using NetCoreTemplate.DataAccess.Contracts.Repositories;
 using NetCoreTemplate.DataAccess.EF;
 using NetCoreTemplate.DataAccess.EF.Repositories;
 

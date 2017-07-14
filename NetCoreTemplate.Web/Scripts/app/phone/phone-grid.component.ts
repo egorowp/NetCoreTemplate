@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router'
 
-import { Phone } from "../models/phone";
+import { Phone } from '../models/phone';
 import { PhoneService } from './phone.service';
 import { EventsService } from '../events.service';
 
@@ -23,9 +23,10 @@ export class PhoneGridComponent implements OnInit {
     ngOnInit(): void {
         debugger;
         this.reloadGridData();
-        this.eventsService.on("phone-form-saved", () => {
-            this.reloadGridData();
-        })
+        this.eventsService.on('phone-form-saved',
+            () => {
+                this.reloadGridData();
+            });
     }
 
     onRowClick(i: number) {

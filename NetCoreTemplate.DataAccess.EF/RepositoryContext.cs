@@ -1,6 +1,7 @@
 ﻿using NetCoreTemplate.DataAccess.Contracts;
+using NetCoreTemplate.DataAccess.Contracts.Repositories;
 
-namespace NetCoreTemplate.DataAccess.EF.Repositories
+namespace NetCoreTemplate.DataAccess.EF
 {
     public class RepositoryContext : IRepositoriesContext
     {

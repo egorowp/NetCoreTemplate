@@ -6,22 +6,22 @@ namespace NetCoreTemplate.Domain.Contracts
     {
         void WriteCritical(string message, Exception exception);
 
-        void WriteCritical(Object message);
+        void WriteCritical(object message);
 
         void WriteError(string message, Exception exception);
 
-        void WriteError(Object message);
+        void WriteError(object message);
 
         void WriteWarning(string message, Exception exception);
 
-        void WriteWarning(Object message);
+        void WriteWarning(object message);
 
         void WriteInformation(string message, Exception exception);
 
-        void WriteInformation(Object message);
+        void WriteInformation(object message);
 
         void WriteDebug(string message, Exception exception);
 
-        void WriteDebug(Object message);
+        void WriteDebug(object message);
     }
 }

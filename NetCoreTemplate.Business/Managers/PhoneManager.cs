@@ -1,31 +1,26 @@
 ﻿using System;
-using NetCoreTemplate.Business.Contracts;
+using System.Collections.Generic;
+using NetCoreTemplate.Business.Contracts.Managers;
 using NetCoreTemplate.DataAccess.Contracts;
 using NetCoreTemplate.Domain.Parameters;
 using NetCoreTemplate.Domain.ViewModels;
 using PostSharp.Patterns.Diagnostics;
 
-namespace NetCoreTemplate.Business.Services
+namespace NetCoreTemplate.Business.Managers
 {
-    public class PhoneService : IPhoneService
+    public class PhoneManager : IPhoneManager
     {
         private readonly IRepositoriesContext _repositoriesContext;
 
-        public PhoneService(IRepositoriesContext repositoriesContext)
+        public PhoneManager(IRepositoriesContext repositoriesContext)
         {
             _repositoriesContext = repositoriesContext;
         }
 
         [Log]
-        public Guid AddNew(string name, string company, int price)
+        public IEnumerable<PhoneViewModel> GetAll()
         {
-            return _repositoriesContext.PhoneRepository.AddNew(name, company, price);
-        }
-
-        [Log]
-        public PhoneViewModel[] GetAll()
-        {
-            return _repositoriesContext.PhoneRepository.GetAll();
+            return _repositoriesContext.PhoneRepository.GetPhones();
         }
 
         [Log]
@@ -35,13 +30,13 @@ namespace NetCoreTemplate.Business.Services
         }
 
         [Log]
-        public bool Delete(DeleteParams parameters)
+        public bool Delete(IdParams parameters)
         {
             return _repositoriesContext.PhoneRepository.Delete(parameters);
         }
 
         [Log]
-        public PhoneViewModel Get(GetParams parameters)
+        public PhoneViewModel Get(IdParams parameters)
         {
             return _repositoriesContext.PhoneRepository.Get(parameters);
         }

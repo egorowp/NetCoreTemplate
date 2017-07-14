@@ -1,36 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Microsoft.EntityFrameworkCore;
-using NetCoreTemplate.DataAccess.Contracts;
-using NetCoreTemplate.Domain;
+using NetCoreTemplate.DataAccess.Contracts.Repositories;
 using NetCoreTemplate.Domain.Contracts;
 
 namespace NetCoreTemplate.DataAccess.EF.Repositories
 {
-    public class BaseRepository<T> : IRepository<T> where T : class, IEntity
+    public class BaseRepository<T> : IBaseRepository<T> where T : class, IEntity
     {
-        protected IQueryable<T> BaseQuery { get; set; }
+        private readonly DbSet<T> _dbSet;
 
-        protected DbSet<T> BaseDbSet { get; set; }
-
-        protected DatabaseContext DataContext { get; set; }
+        protected DatabaseContext DatabaseContext { get; set; }
 
         protected ILoggerProvider Logger { get; set; }
 
         public BaseRepository(DatabaseContext databaseContext, ILoggerProvider loggerProvider)
         {
-            DataContext = databaseContext;
-            BaseQuery = DataContext.Set<T>();
-            BaseDbSet = DataContext.Set<T>();
+            DatabaseContext = databaseContext;
+            _dbSet = DatabaseContext.Set<T>();
             Logger = loggerProvider;
         }
 
-
         public void Reload(T entry)
         {
-            DataContext.Entry(entry).Reload();
+            DatabaseContext.Entry(entry).Reload();
         }
 
         public virtual T Get(Guid id)
@@ -39,38 +33,31 @@ namespace NetCoreTemplate.DataAccess.EF.Repositories
             {
                 return null;
             }
-            return BaseDbSet.Find(id);
+            return _dbSet.Find(id);
         }
 
-        public virtual T Get(Guid? id)
-        {
-            return id.HasValue ? Get(id.Value) : null;
-        }
-
-        // find by id is necessary when you would like to get separate entity which is refer to another place in the heap.
-        // when use 'Get' method it will return you previous entity from context if this entity has already gotten via this method
         public T FindById(Guid id)
         {
-            return BaseDbSet.AsQueryable().AsNoTracking().FirstOrDefault(i => i.Id.Equals(id));
+            return _dbSet.AsQueryable()
+                .AsNoTracking()
+                .FirstOrDefault(i => i.Id.Equals(id));
         }
 
-        public virtual IEnumerable<T> GetAll()
+        public virtual IQueryable<T> GetAll()
         {
-            return BaseQuery.ToArray();
+            return _dbSet;
         }
 
-        public virtual Boolean Update(T entity)
+        public virtual bool Update(T entity)
         {
             if (entity.Id == Guid.Empty)
             {
-                DataContext.Set<T>().Attach(entity);
-                DataContext.Entry(entity).State = EntityState.Added;
+                throw new InvalidOperationException("You try update entity with empty ID");
             }
-
             try
             {
-                DataContext.SaveChanges();
-                return DataContext.Entry(entity).State == EntityState.Unchanged;
+                DatabaseContext.SaveChanges();
+                return DatabaseContext.Entry(entity).State == EntityState.Unchanged;
             }
             catch (Exception exception)
             {
@@ -79,58 +66,62 @@ namespace NetCoreTemplate.DataAccess.EF.Repositories
             }
         }
 
-        public virtual T Save(T entity)
+        public virtual T Add(T entity)
         {
             if (entity.Id != Guid.Empty)
             {
                 throw new InvalidOperationException("You try save entity with existing ID");
             }
-
-            DataContext.Set<T>().Add(entity);
-            DataContext.SaveChanges();
-            DataContext.Set<T>().Attach(entity);
+            try
+            {
+                DatabaseContext.Set<T>().Add(entity);
+                DatabaseContext.SaveChanges();
+                DatabaseContext.Set<T>().Attach(entity);
+            }
+            catch (Exception exception)
+            {
+                Logger.WriteError(exception.Message, exception);
+                throw;
+            }
             return entity;
         }
 
-        public virtual ICollection<T> SaveCollection(ICollection<T> entities)
+        public virtual ICollection<T> AddRange(ICollection<T> entities)
         {
-            if (entities.Any(v => v.Id != Guid.Empty))
+            if (entities.Any(e => e.Id != Guid.Empty))
+            {
                 throw new InvalidOperationException("You try save entity with existing ID");
+            }
 
-            DataContext.Set<T>().AddRange(entities);
-            DataContext.SaveChanges();
+            DatabaseContext.Set<T>().AddRange(entities);
+            DatabaseContext.SaveChanges();
 
             return entities;
         }
 
-        public virtual void Delete(T entity, Boolean refreshContext = true)
+        public virtual void Delete(T entity, bool refreshContext = true)
         {
-            DataContext.Set<T>().Remove(entity);
+            DatabaseContext.Set<T>().Remove(entity);
             if (refreshContext)
             {
-                DataContext.SaveChanges();
+                DatabaseContext.SaveChanges();
             }
         }
 
         public virtual void DeleteRange(IEnumerable<T> range)
         {
-            DataContext.Set<T>().RemoveRange(range);
-            DataContext.SaveChanges();
+            DatabaseContext.Set<T>().RemoveRange(range);
+            DatabaseContext.SaveChanges();
         }
 
-        public Boolean Any()
+        public bool Any()
         {
-            return DataContext.Set<T>().Any();
+            return DatabaseContext.Set<T>().Any();
         }
 
-        public override string ToString()
+        public int SaveChanges()
         {
-            return String.Format("Entity: {0}", typeof(T).Name);
-        }
-
-        public Int32 SaveChanges()
-        {
-            return DataContext.SaveChanges();
+            return DatabaseContext.SaveChanges();
         }
     }
 }

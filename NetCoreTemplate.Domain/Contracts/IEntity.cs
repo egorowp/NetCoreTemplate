@@ -12,6 +12,6 @@ namespace NetCoreTemplate.Domain.Contracts
         /// </summary>
         Guid Id { get; set; }
 
-        String ToString();
+        string ToString();
     }
 }

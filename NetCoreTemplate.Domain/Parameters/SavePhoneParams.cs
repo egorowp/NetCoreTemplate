@@ -1,5 +1,4 @@
 ﻿using System;
-using NetCoreTemplate.Domain.ViewModels;
 
 namespace NetCoreTemplate.Domain.Parameters
 {

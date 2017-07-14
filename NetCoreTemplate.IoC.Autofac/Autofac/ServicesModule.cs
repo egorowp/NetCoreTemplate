@@ -1,6 +1,6 @@
 ﻿using Autofac;
-using NetCoreTemplate.Business.Contracts;
-using NetCoreTemplate.Business.Services;
+using NetCoreTemplate.Business.Contracts.Managers;
+using NetCoreTemplate.Business.Managers;
 
 namespace NetCoreTemplate.IoC.Autofac.Autofac
 {
@@ -9,7 +9,7 @@ namespace NetCoreTemplate.IoC.Autofac.Autofac
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            builder.RegisterType<PhoneService>().As<IPhoneService>();
+            builder.RegisterType<PhoneManager>().As<IPhoneManager>();
         }
     }
 }

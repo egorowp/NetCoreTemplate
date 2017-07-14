@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.SpaServices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -74,15 +73,13 @@ namespace NetCoreTemplate.Web
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "Default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-                routes.MapRoute(
                     name: "API Default",
                     template: "api/{controller}/{action}/{id?}"
                 );
                 routes.MapSpaFallbackRoute(
-                    name: "spa-fallback",
-                    defaults: new { controller = "Home", action = "Index" });
+                     name: "SPA Default",
+                     defaults: new { controller = "Home", action = "Index" }
+                 );
             });
 
             // If you want to dispose of resources that have been resolved in the

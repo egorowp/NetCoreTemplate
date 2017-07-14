@@ -1,7 +1,7 @@
 ﻿import { Component, Injectable, } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router'
 import { AddressService } from './address.service'
-import { Address } from "../models/address";
+import { Address } from '../models/address';
 
 @Component({
     templateUrl: 'address-grid.component.html'
@@ -18,7 +18,7 @@ export class AddressGridComponent {
         private route: ActivatedRoute,
         private router: Router
     ) {
-        this.selectedAddressId = "00000000-0000-0000-0000-000000000000";
+        this.selectedAddressId = '00000000-0000-0000-0000-000000000000';
         this.phones = this.addressServices.getAddress();
     }
 

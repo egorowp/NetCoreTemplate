@@ -1,9 +1,8 @@
 ﻿using System;
-using NetCoreTemplate.Domain.ViewModels;
 
 namespace NetCoreTemplate.Domain.Parameters
 {
-    public class DeleteParams : Serializable
+    public class IdParams : Serializable
     {
         public Guid Id { get; set; }
     }

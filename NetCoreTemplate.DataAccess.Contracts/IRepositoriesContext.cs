@@ -1,4 +1,6 @@
-﻿namespace NetCoreTemplate.DataAccess.Contracts
+﻿using NetCoreTemplate.DataAccess.Contracts.Repositories;
+
+namespace NetCoreTemplate.DataAccess.Contracts
 {
     public interface IRepositoriesContext
     {

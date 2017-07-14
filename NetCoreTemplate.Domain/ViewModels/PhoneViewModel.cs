@@ -21,9 +21,9 @@ namespace NetCoreTemplate.Domain.ViewModels
 
         public Guid Id { get; set; }
 
-        public String Company { get; set; }
+        public string Company { get; set; }
 
-        public String Name { get; set; }
+        public string Name { get; set; }
 
         public int Price { get; set; }
     }

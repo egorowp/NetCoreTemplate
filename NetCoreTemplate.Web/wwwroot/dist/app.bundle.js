@@ -41074,18 +41074,6 @@ var http_1 = __webpack_require__(45);
 __webpack_require__(80);
 var entity_1 = __webpack_require__(160);
 var PhoneService = (function () {
-    //private extractData(res: Response) {
-    //    let body = res.json();
-    //    return body || {};
-    //}
-    //private handleErrorObservable(error: Response | any) {
-    //    console.error(error.message || error);
-    //    return Observable.throw(error.message || error);
-    //}
-    //private handleErrorPromise(error: Response | any) {
-    //    console.error(error.message || error);
-    //    return Promise.reject(error.message || error);
-    //}
     function PhoneService(http) {
         this.http = http;
         console.log("PhoneService initialization ...");
@@ -43578,12 +43566,8 @@ var AddressGridComponent = (function () {
         this.addressServices = addressServices;
         this.route = route;
         this.router = router;
-        debugger;
         this.selectedAddressId = "00000000-0000-0000-0000-000000000000";
         this.phones = this.addressServices.getAddress();
-        //    .subscribe(ps => {
-        //    this.phones = ps;
-        //});
     }
     AddressGridComponent.prototype.onRowClick = function (i) {
         this.selectedAddressId = this.phones[i].Id;
@@ -43591,9 +43575,6 @@ var AddressGridComponent = (function () {
     };
     AddressGridComponent.prototype.onPhoneDelete = function (i) {
         this.addressServices.deletePhone(this.phones[i]);
-        //    .subscribe((u: any) => {
-        //    this.phones.splice(i, 1);
-        //});
         event.stopPropagation();
         return false;
     };
@@ -43638,19 +43619,10 @@ var AddressService = (function () {
     }
     AddressService.prototype.getAddress = function () {
         return this.addresses;
-        //this.http.post("./phone", "").map(
-        //    res => res.json());
     };
     AddressService.prototype.savePhone = function (address) {
-        debugger;
-        //if (!this.phones.includes(this.selectedPhone)) {
-        //    this.phones.push(this.selectedPhone);
-        //}
-        //return this.http.post("phone/save", phone );
     };
     AddressService.prototype.deletePhone = function (address) {
-        //return this.http.post("phone/delete", phone).map(
-        //  res => res.json());
     };
     return AddressService;
 }());
@@ -80667,9 +80639,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(5);
 var common_1 = __webpack_require__(30);
 var forms_1 = __webpack_require__(60);
-//// components
+// components
 var address_grid_component_1 = __webpack_require__(91);
-//// modules
+// modules
 var address_routing_module_1 = __webpack_require__(155);
 var address_service_1 = __webpack_require__(92);
 var AddressModule = (function () {
@@ -80686,8 +80658,6 @@ AddressModule = __decorate([
         ],
         declarations: [
             address_grid_component_1.AddressGridComponent
-            //PhoneGridComponent,
-            //PhoneFormComponent
         ],
         providers: [
             address_service_1.AddressService
@@ -80882,10 +80852,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(5);
 var common_1 = __webpack_require__(30);
 var forms_1 = __webpack_require__(60);
-//// components
+// components
 var phone_grid_component_1 = __webpack_require__(94);
 var phone_form_component_1 = __webpack_require__(93);
-//// modules
+// modules
 var phone_routing_module_1 = __webpack_require__(163);
 //services
 var phone_service_1 = __webpack_require__(62);
@@ -81010,7 +80980,7 @@ exports.PhoneRoutingModule = PhoneRoutingModule;
 /* 215 */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div class=\"container\">\r\n    <h1>Addresses</h1>\r\n    <a class=\"btn btn-info btn-lg\" routerLink=\"/add\" >New Address</a>\r\n\r\n    <table class=\"table table-striped\">\r\n        <thead>\r\n        <tr>\r\n            <th>#</th>\r\n            <th>Country</th>\r\n            <th>City</th>\r\n            <th>State</th>\r\n        </tr>\r\n        </thead>\r\n        <tbody *ngFor=\"let address of addresses;let i = index\">\r\n        <tr (click)=\"onRowClick(i)\">\r\n            <td>{{i}}</td>\r\n            <td> {{phone.Company}}</td>\r\n            <td>{{phone.Name}}</td>\r\n            <td>{{phone.Price}}</td>\r\n            <td class=\"close\" (click)=\"onAddressDelete(i);\">x</td>\r\n        </tr>\r\n        </tbody>\r\n    </table>\r\n</div>\r\n\r\n\r\n\r\n";
+module.exports = "<div class=\"container\">\r\n    <h1>Addresses</h1>\r\n    <a class=\"btn btn-info btn-lg\" routerLink=\"/add\" >New Address</a>\r\n    <table class=\"table table-striped\">\r\n        <thead>\r\n        <tr>\r\n            <th>#</th>\r\n            <th>Country</th>\r\n            <th>City</th>\r\n            <th>State</th>\r\n        </tr>\r\n        </thead>\r\n        <tbody *ngFor=\"let address of addresses;let i = index\">\r\n        <tr (click)=\"onRowClick(i)\">\r\n            <td>{{i}}</td>\r\n            <td> {{phone.Company}}</td>\r\n            <td>{{phone.Name}}</td>\r\n            <td>{{phone.Price}}</td>\r\n            <td class=\"close\" (click)=\"onAddressDelete(i);\">x</td>\r\n        </tr>\r\n        </tbody>\r\n    </table>\r\n</div>\r\n\r\n\r\n\r\n";
 
 /***/ }),
 /* 216 */
@@ -81028,7 +80998,7 @@ module.exports = "<div class=\"modal fade in show\" role=\"dialog\">\r\n    <div
 /* 218 */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div class=\"container\">\r\n    <h1>Phones</h1>\r\n    <a class=\"btn btn-info btn-lg\" routerLink=\"../phone/add\" >New Phone</a>\r\n\r\n    <table class=\"table table-striped\">\r\n        <thead>\r\n        <tr>\r\n            <th>#</th>\r\n            <th>Company</th>\r\n            <th>Name</th>\r\n            <th>Price</th>\r\n        </tr>\r\n        </thead>\r\n        <tbody *ngFor=\"let phone of phones;let i = index\">\r\n        <tr (click)=\"onRowClick(i)\">\r\n            <td>{{i}}</td>\r\n            <td> {{phone.Company}}</td>\r\n            <td>{{phone.Name}}</td>\r\n            <td>{{phone.Price}}</td>\r\n            <td class=\"close\" (click)=\"onPhoneDelete(i);\">x</td>\r\n        </tr>\r\n        </tbody>\r\n    </table>\r\n</div>\r\n<router-outlet></router-outlet>\r\n\r\n\r\n\r\n";
+module.exports = "<div class=\"container\">\r\n    <h1>Phones</h1>\r\n    <a class=\"btn btn-info btn-lg\" routerLink=\"../phone/add\" >New Phone</a>\r\n    <table class=\"table table-striped\">\r\n        <thead>\r\n        <tr>\r\n            <th>#</th>\r\n            <th>Company</th>\r\n            <th>Name</th>\r\n            <th>Price</th>\r\n        </tr>\r\n        </thead>\r\n        <tbody *ngFor=\"let phone of phones;let i = index\">\r\n        <tr (click)=\"onRowClick(i)\">\r\n            <td>{{i}}</td>\r\n            <td> {{phone.Company}}</td>\r\n            <td>{{phone.Name}}</td>\r\n            <td>{{phone.Price}}</td>\r\n            <td class=\"close\" (click)=\"onPhoneDelete(i);\">x</td>\r\n        </tr>\r\n        </tbody>\r\n    </table>\r\n</div>\r\n<router-outlet></router-outlet>\r\n\r\n\r\n\r\n";
 
 /***/ }),
 /* 219 */

@@ -1,8 +1,8 @@
-﻿import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
+﻿import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
-import { PhoneGridComponent } from "./phone-grid.component";
-import { PhoneFormComponent } from "./phone-form.component";
+import { PhoneGridComponent } from './phone-grid.component';
+import { PhoneFormComponent } from './phone-form.component';
 
 const routes: Routes = [
     {

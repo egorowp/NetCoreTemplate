@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
@@ -13,7 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\NetCoreTemplate.DataAccess.EF\NetCoreTemplate.DataAccess.EF.csproj" />
     <ProjectReference Include="..\NetCoreTemplate.Domain\NetCoreTemplate.Domain.csproj" />
-    <ProjectReference Include="..\NetCoreTemplate.Logger\NetCoreTemplate.Logger.csproj" />
+    <ProjectReference Include="..\NetCoreTemplate.Logger.NLog\NetCoreTemplate.Logger.NLog.csproj" />
     <ProjectReference Include="..\NetCoreTemplate.Business\NetCoreTemplate.Business.csproj" />
   </ItemGroup>
 

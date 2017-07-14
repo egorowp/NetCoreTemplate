@@ -7,7 +7,7 @@ using NLog.Config;
 using PostSharp.Patterns.Diagnostics;
 using PostSharp.Patterns.Diagnostics.Backends.NLog;
 
-namespace NetCoreTemplate.Logger
+namespace NetCoreTemplate.Logger.NLog
 {
     public class LoggerProvider : ILoggerProvider
     {
@@ -20,7 +20,7 @@ namespace NetCoreTemplate.Logger
             LoggingServices.DefaultBackend = nlog;
         }
 
-        private readonly NLog.Logger _logger = LogManager.GetLogger("allfile");
+        private readonly global::NLog.Logger _logger = LogManager.GetLogger("allfile");
 
         public void WriteCritical(string message, Exception exception)
         {
