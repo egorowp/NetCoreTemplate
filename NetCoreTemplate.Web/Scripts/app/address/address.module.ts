@@ -8,8 +8,6 @@ import { AddressGridComponent } from './address-grid.component';
 // modules
 import { AddressRoutingModule } from './address.routing.module';
 
-import { AddressService } from './address.service';
-
 @NgModule({
     imports: [
         CommonModule,
@@ -20,7 +18,6 @@ import { AddressService } from './address.service';
         AddressGridComponent
     ],
     providers: [
-        AddressService
     ]
 })
 

@@ -14,7 +14,7 @@ import { AddressModule } from './address/address.module';
 import { PhoneModule } from './phone/phone.module';
 
 //services
-import { EventsService } from './events.service';
+import { EventsService } from '../services/events.service';
 
 @NgModule({
     imports: [
@@ -24,14 +24,13 @@ import { EventsService } from './events.service';
         HttpModule,
         AddressModule,
         PhoneModule,       
-        AppRoutingModule,
-        BrowserAnimationsModule
+        AppRoutingModule
     ],
     declarations: [
         AppComponent
     ],
     providers: [
-        EventsService
+        EventsService,
     ],
     bootstrap: [AppComponent]
 })

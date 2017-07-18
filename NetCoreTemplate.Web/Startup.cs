@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NetCoreTemplate.IoC.Autofac;
+using Newtonsoft.Json;
+using NSwag.AspNetCore;
 
 namespace NetCoreTemplate.Web
 {
@@ -52,11 +55,7 @@ namespace NetCoreTemplate.Web
             loggerFactory.AddConsole(this.Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            var angularRoutes = new[]
-            {
-                "/default",
-                "/home"
-            };
+            app.UseSwaggerUi(typeof(Startup).GetTypeInfo().Assembly, new SwaggerUiSettings());
 
             if (env.IsDevelopment())
             {

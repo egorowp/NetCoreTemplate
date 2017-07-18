@@ -2,9 +2,9 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { Http } from '@angular/http';
 
-import { Phone } from '../models/phone';
-import { PhoneService } from './phone.service';
-import { EventsService } from '../events.service';
+import { EventsService } from '../../services/events.service';
+import { PhonesService, PhoneViewModel, IdParams } from '../../services/controller-generated.service';
+
 
 @Component({
     moduleId: module.id.toString(),
@@ -21,16 +21,19 @@ export class PhoneFormComponent implements OnInit{
         private http: Http,
         private route: ActivatedRoute,
         private router: Router,
-        private phoneService: PhoneService,
-        private eventsService : EventsService
+        private phonesService: PhonesService,
+        private eventsService: EventsService,
     ) {
-        this.phone = new Phone('00000000-0000-0000-0000-000000000000', '', '', 0);
+        this.phone = new PhoneViewModel();
+        this.phone.id = '00000000-0000-0000-0000-000000000000';
     }
 
     ngOnInit(): void {
         var selectedPhoneId = this.route.snapshot.params['id'];
         if (selectedPhoneId != undefined) {
-            this.phoneService.getPhone(selectedPhoneId)
+            var idParams = new IdParams();
+            idParams.id = selectedPhoneId;
+            this.phonesService.get(idParams)
                 .subscribe(p =>  this.phone = p);
         }
     }
@@ -43,7 +46,7 @@ export class PhoneFormComponent implements OnInit{
     }
 
     onPopupSubmit() {
-        this.phoneService.savePhone(this.phone)
+        this.phonesService.save(this.phone)
             .subscribe(p => {
                 this.eventsService.broadcast('phone-form-saved');
                 this.router.navigate(['phone']);

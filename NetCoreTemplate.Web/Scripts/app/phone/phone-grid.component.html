@@ -13,9 +13,9 @@
         <tbody *ngFor="let phone of phones;let i = index">
         <tr (click)="onRowClick(i)">
             <td>{{i}}</td>
-            <td> {{phone.Company}}</td>
-            <td>{{phone.Name}}</td>
-            <td>{{phone.Price}}</td>
+            <td> {{phone.company}}</td>
+            <td>{{phone.name}}</td>
+            <td>{{phone.price}}</td>
             <td class="close" (click)="onPhoneDelete(i);">x</td>
         </tr>
         </tbody>

@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using NetCoreTemplate.Business.Contracts.Managers;
 using NetCoreTemplate.Domain.Parameters;
-using Newtonsoft.Json;
+using NetCoreTemplate.Domain.ViewModels;
 
-namespace NetCoreTemplate.Web.Api
+namespace NetCoreTemplate.Web.Controllers.BaseApp.Api
 {
     [Route("api/[controller]")]
     public class PhonesController : Controller
@@ -15,31 +16,31 @@ namespace NetCoreTemplate.Web.Api
         }
 
         [HttpPost("[action]")]
-        public ActionResult Index()
+        public IEnumerable<PhoneViewModel> Index()
         {
             var phones = _phoneManager.GetAll();
-            return Content(JsonConvert.SerializeObject(phones));
+            return phones;
         }
 
         [HttpPost("[action]")]
-        public ActionResult Get([FromBody] IdParams parameters)
+        public PhoneViewModel Get([FromBody] IdParams parameters)
         {
             var phone = _phoneManager.Get(parameters);
-            return Content(JsonConvert.SerializeObject(phone));
+            return phone;
         }
 
         [HttpPost("[action]")]
-        public ActionResult Save([FromBody] SavePhoneParams parameters)
+        public PhoneViewModel Save([FromBody] SavePhoneParams parameters)
         {
             var phone = _phoneManager.Save(parameters);
-            return Content(JsonConvert.SerializeObject(phone));
+            return phone;
         }
 
         [HttpPost("[action]")]
-        public ActionResult Delete([FromBody] IdParams parameters)
+        public bool Delete([FromBody] IdParams parameters)
         {
             _phoneManager.Delete(parameters);
-            return Content(JsonConvert.SerializeObject(true));
+            return true;
         }
     }
 }

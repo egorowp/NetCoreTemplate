@@ -10,7 +10,7 @@ import { PhoneFormComponent } from './phone-form.component';
 import { PhoneRoutingModule } from './phone.routing.module';
 
 //services
-import { PhoneService } from './phone.service';
+import { PhonesService } from "../../services/controller-generated.service";
 
 @NgModule({
     imports: [
@@ -23,7 +23,7 @@ import { PhoneService } from './phone.service';
         PhoneFormComponent
     ],
     providers: [
-        PhoneService
+        PhonesService
     ]
 })
 
