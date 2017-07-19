@@ -33,7 +33,7 @@ export class PhoneFormComponent implements OnInit{
         if (selectedPhoneId != undefined) {
             var idParams = new IdParams();
             idParams.id = selectedPhoneId;
-            this.phonesService.get(selectedPhoneId)
+            this.phonesService.get(idParams)
                 .subscribe(p =>  this.phone = p);
         }
     }

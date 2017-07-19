@@ -41045,11 +41045,11 @@ var PhonesService = (function () {
     function PhonesService(http, baseUrl) {
         this.jsonParseReviver = undefined;
         this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "";
+        this.baseUrl = baseUrl ? baseUrl : "http://localhost:60351";
     }
-    PhonesService.prototype.getAll = function () {
+    PhonesService.prototype.index = function () {
         var _this = this;
-        var url_ = this.baseUrl + "/api/Phones/GetAll";
+        var url_ = this.baseUrl + "/api/Phones/Index";
         url_ = url_.replace(/[?&]$/, "");
         var options_ = {
             method: "post",
@@ -41059,11 +41059,11 @@ var PhonesService = (function () {
             })
         };
         return this.http.request(url_, options_).flatMap(function (response_) {
-            return _this.processGetAll(response_);
+            return _this.processIndex(response_);
         }).catch(function (response_) {
             if (response_ instanceof http_1.Response) {
                 try {
-                    return _this.processGetAll(response_);
+                    return _this.processIndex(response_);
                 }
                 catch (e) {
                     return Observable_1.Observable.throw(e);
@@ -41073,7 +41073,7 @@ var PhonesService = (function () {
                 return Observable_1.Observable.throw(response_);
         });
     };
-    PhonesService.prototype.processGetAll = function (response) {
+    PhonesService.prototype.processIndex = function (response) {
         var status = response.status;
         if (status === 200) {
             var _responseText = response.text();
@@ -41264,10 +41264,10 @@ var PhoneViewModel = (function (_super) {
     PhoneViewModel.prototype.init = function (data) {
         _super.prototype.init.call(this, data);
         if (data) {
-            this.id = data["Id"];
-            this.company = data["Company"];
-            this.name = data["Name"];
-            this.price = data["Price"];
+            this.id = data["id"];
+            this.company = data["company"];
+            this.name = data["name"];
+            this.price = data["price"];
         }
     };
     PhoneViewModel.fromJS = function (data) {
@@ -41277,10 +41277,10 @@ var PhoneViewModel = (function (_super) {
     };
     PhoneViewModel.prototype.toJSON = function (data) {
         data = typeof data === 'object' ? data : {};
-        data["Id"] = this.id;
-        data["Company"] = this.company;
-        data["Name"] = this.name;
-        data["Price"] = this.price;
+        data["id"] = this.id;
+        data["company"] = this.company;
+        data["name"] = this.name;
+        data["price"] = this.price;
         _super.prototype.toJSON.call(this, data);
         return data;
     };
@@ -41295,7 +41295,7 @@ var IdParams = (function (_super) {
     IdParams.prototype.init = function (data) {
         _super.prototype.init.call(this, data);
         if (data) {
-            this.id = data["Id"];
+            this.id = data["id"];
         }
     };
     IdParams.fromJS = function (data) {
@@ -41305,7 +41305,7 @@ var IdParams = (function (_super) {
     };
     IdParams.prototype.toJSON = function (data) {
         data = typeof data === 'object' ? data : {};
-        data["Id"] = this.id;
+        data["id"] = this.id;
         _super.prototype.toJSON.call(this, data);
         return data;
     };
@@ -41320,10 +41320,10 @@ var SavePhoneParams = (function (_super) {
     SavePhoneParams.prototype.init = function (data) {
         _super.prototype.init.call(this, data);
         if (data) {
-            this.id = data["Id"];
-            this.name = data["Name"];
-            this.company = data["Company"];
-            this.price = data["Price"];
+            this.id = data["id"];
+            this.name = data["name"];
+            this.company = data["company"];
+            this.price = data["price"];
         }
     };
     SavePhoneParams.fromJS = function (data) {
@@ -41333,10 +41333,10 @@ var SavePhoneParams = (function (_super) {
     };
     SavePhoneParams.prototype.toJSON = function (data) {
         data = typeof data === 'object' ? data : {};
-        data["Id"] = this.id;
-        data["Name"] = this.name;
-        data["Company"] = this.company;
-        data["Price"] = this.price;
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["company"] = this.company;
+        data["price"] = this.price;
         _super.prototype.toJSON.call(this, data);
         return data;
     };
@@ -42688,7 +42688,7 @@ var PhoneFormComponent = (function () {
         if (selectedPhoneId != undefined) {
             var idParams = new controller_generated_service_1.IdParams();
             idParams.id = selectedPhoneId;
-            this.phonesService.get(selectedPhoneId)
+            this.phonesService.get(idParams)
                 .subscribe(function (p) { return _this.phone = p; });
         }
     };
@@ -42780,7 +42780,7 @@ var PhoneGridComponent = (function () {
     };
     PhoneGridComponent.prototype.reloadGridData = function () {
         var _this = this;
-        this.phonesService.getAll().subscribe(function (r) { debugger; _this.phones = r; });
+        this.phonesService.index().subscribe(function (r) { _this.phones = r; });
     };
     return PhoneGridComponent;
 }());
