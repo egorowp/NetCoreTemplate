@@ -16,7 +16,7 @@ namespace NetCoreTemplate.Web.Controllers.BaseApp.Api
         }
 
         [HttpPost("[action]")]
-        public IEnumerable<PhoneViewModel> Index()
+        public IEnumerable<PhoneViewModel> GetAll()
         {
             var phones = _phoneManager.GetAll();
             return phones;

@@ -42780,7 +42780,7 @@ var PhoneGridComponent = (function () {
     };
     PhoneGridComponent.prototype.reloadGridData = function () {
         var _this = this;
-        this.phonesService.getAll().subscribe(function (r) { debugger; _this.phones = r; });
+        this.phonesService.getAll().subscribe(function (r) { _this.phones = r; });
     };
     return PhoneGridComponent;
 }());

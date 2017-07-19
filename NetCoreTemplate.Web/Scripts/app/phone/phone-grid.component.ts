@@ -41,7 +41,7 @@ export class PhoneGridComponent implements OnInit {
     }
 
     reloadGridData() {
-        this.phonesService.index().subscribe(r => { this.phones = r });
+        this.phonesService.getAll().subscribe(r => { debugger; this.phones = r });
     }
 }
 

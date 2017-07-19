@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NetCoreTemplate.IoC.Autofac;
-using Newtonsoft.Json;
 using NSwag.AspNetCore;
 
 namespace NetCoreTemplate.Web

@@ -1,8 +1,25 @@
 ﻿{
   "swaggerGenerator": {
-    "fromSwagger": {
-      "json": "",
-      "url": "http://localhost:60351/swagger/v1/swagger.json",
+    "webApiToSwagger": {
+      "assemblyPaths": [
+        "bin/Debug/netcoreapp1.1/NetCoreTemplate.Web.dll"
+      ],
+      "referencePaths": [],
+      "isAspNetCore": false,
+      "controllerNames": [
+        "NetCoreTemplate.Web.Controllers.BaseApp.Api.PhonesController"
+      ],
+      "defaultUrlTemplate": "api/{controller}/{id?}",
+      "defaultPropertyNameHandling": "Default",
+      "defaultEnumHandling": "Integer",
+      "flattenInheritanceHierarchy": false,
+      "generateKnownTypes": true,
+      "generateXmlObjects": false,
+      "generateAbstractProperties": false,
+      "addMissingPathParameters": false,
+      "ignoreObsoleteProperties": false,
+      "infoTitle": "Web API Swagger specification",
+      "infoVersion": "1.0.0",
       "output": null
     }
   },
@@ -11,7 +28,7 @@
       "className": "{controller}Service",
       "moduleName": "",
       "namespace": "",
-      "typeScriptVersion": 2.0,
+      "typeScriptVersion": 1.8,
       "template": "Angular",
       "promiseType": "Promise",
       "dateTimeType": "Date",
@@ -20,11 +37,10 @@
       "generateClientInterfaces": false,
       "generateOptionalParameters": false,
       "wrapDtoExceptions": false,
-      "clientBaseClass": "",
       "useTransformOptionsMethod": false,
       "useTransformResultMethod": false,
       "generateDtoTypes": true,
-      "operationGenerationMode": "MultipleClientsFromPathSegments",
+      "operationGenerationMode": "MultipleClientsFromOperationId",
       "markOptionalProperties": true,
       "generateCloneMethod": false,
       "typeStyle": "Class",
@@ -35,7 +51,7 @@
       "importRequiredTypes": true,
       "useGetBaseUrlMethod": false,
       "baseUrlTokenName": "API_BASE_URL",
-      "output": "services/controller-generated.service.ts"
+      "output": "Scripts/services/controller-generated.service.ts"
     }
   }
 }

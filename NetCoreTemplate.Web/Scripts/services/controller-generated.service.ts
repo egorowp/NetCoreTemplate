@@ -28,11 +28,11 @@ export class PhonesService {
 
     constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "http://localhost:60351";
+        this.baseUrl = baseUrl ? baseUrl : "";
     }
 
-    index(): Observable<PhoneViewModel[] | null> {
-        let url_ = this.baseUrl + "/api/Phones/Index";
+    getAll(): Observable<PhoneViewModel[] | null> {
+        let url_ = this.baseUrl + "/api/Phones/GetAll";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ = {
@@ -44,11 +44,11 @@ export class PhonesService {
         };
 
         return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processIndex(response_);
+            return this.processGetAll(response_);
         }).catch((response_: any) => {
             if (response_ instanceof Response) {
                 try {
-                    return this.processIndex(response_);
+                    return this.processGetAll(response_);
                 } catch (e) {
                     return <Observable<PhoneViewModel[]>><any>Observable.throw(e);
                 }
@@ -57,7 +57,7 @@ export class PhonesService {
         });
     }
 
-    protected processIndex(response: Response): Observable<PhoneViewModel[] | null> {
+    protected processGetAll(response: Response): Observable<PhoneViewModel[] | null> {
         const status = response.status; 
 
         if (status === 200) {
@@ -257,10 +257,10 @@ export class PhoneViewModel extends Serializable implements IPhoneViewModel {
     init(data?: any) {
         super.init(data);
         if (data) {
-            this.id = data["id"];
-            this.company = data["company"];
-            this.name = data["name"];
-            this.price = data["price"];
+            this.id = data["Id"];
+            this.company = data["Company"];
+            this.name = data["Name"];
+            this.price = data["Price"];
         }
     }
 
@@ -272,10 +272,10 @@ export class PhoneViewModel extends Serializable implements IPhoneViewModel {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["company"] = this.company;
-        data["name"] = this.name;
-        data["price"] = this.price;
+        data["Id"] = this.id;
+        data["Company"] = this.company;
+        data["Name"] = this.name;
+        data["Price"] = this.price;
         super.toJSON(data);
         return data; 
     }
@@ -298,7 +298,7 @@ export class IdParams extends Serializable implements IIdParams {
     init(data?: any) {
         super.init(data);
         if (data) {
-            this.id = data["id"];
+            this.id = data["Id"];
         }
     }
 
@@ -310,7 +310,7 @@ export class IdParams extends Serializable implements IIdParams {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
+        data["Id"] = this.id;
         super.toJSON(data);
         return data; 
     }
@@ -333,10 +333,10 @@ export class SavePhoneParams extends Serializable implements ISavePhoneParams {
     init(data?: any) {
         super.init(data);
         if (data) {
-            this.id = data["id"];
-            this.name = data["name"];
-            this.company = data["company"];
-            this.price = data["price"];
+            this.id = data["Id"];
+            this.name = data["Name"];
+            this.company = data["Company"];
+            this.price = data["Price"];
         }
     }
 
@@ -348,10 +348,10 @@ export class SavePhoneParams extends Serializable implements ISavePhoneParams {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["name"] = this.name;
-        data["company"] = this.company;
-        data["price"] = this.price;
+        data["Id"] = this.id;
+        data["Name"] = this.name;
+        data["Company"] = this.company;
+        data["Price"] = this.price;
         super.toJSON(data);
         return data; 
     }
