@@ -43,17 +43,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Dlls\Microsoft.AspNetCore.Mvc.Abstractions.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Dlls\Microsoft.AspNetCore.Mvc.Core.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Dlls\Microsoft.AspNetCore.Mvc.ViewFeatures.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
+    <None Include="Command Task Runner v1.2.34.vsix" />
     <None Include="nswag.cmd" />
     <None Include="NSwagStudio.msi" />
   </ItemGroup>

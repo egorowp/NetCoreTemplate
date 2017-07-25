@@ -1,4 +1,4 @@
-﻿import { NgModule } from '@angular/core';
+﻿import { NgModule, ErrorHandler,  } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -7,14 +7,18 @@ import { Router } from '@angular/router';
 
 // components
 import { AppComponent } from './app.component';
+import { AlertComponent } from '../directives/alert.component';
 
 // modules
 import { AppRoutingModule } from './app.routing.module';
 import { AddressModule } from './address/address.module';
 import { PhoneModule } from './phone/phone.module';
+import { AlertTestModule } from './alert-test/alert-test.module';
 
 //services
 import { EventsService } from '../services/events.service';
+import { GlobalErrorHandler } from '../services/global-error-handler.service';
+import { AlertService } from '../services/alert.service';
 
 @NgModule({
     imports: [
@@ -23,14 +27,21 @@ import { EventsService } from '../services/events.service';
         ReactiveFormsModule,
         HttpModule,
         AddressModule,
-        PhoneModule,       
+        PhoneModule,
+        AlertTestModule,
         AppRoutingModule
     ],
     declarations: [
+        AlertComponent,
         AppComponent
     ],
     providers: [
+        AlertService,
         EventsService,
+        {
+            provide: ErrorHandler,
+            useClass: GlobalErrorHandler
+        }
     ],
     bootstrap: [AppComponent]
 })
