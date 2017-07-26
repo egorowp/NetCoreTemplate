@@ -4,14 +4,14 @@ using NetCoreTemplate.Domain.ViewModels;
 
 namespace NetCoreTemplate.Business.Contracts.Managers
 {
-    public interface IPhoneManager
+    public interface IAddressManager
     {
-        IEnumerable<PhoneViewModel> GetAll();
+        IEnumerable<AddressGridViewModel> GetAll();
 
-        PhoneViewModel Save(SavePhoneParams parameters);
+        AddressViewModel Save(SaveAddressParams parameters);
 
         bool Delete(IdParams parameters);
 
-        PhoneViewModel Get(IdParams parameters);
+        AddressViewModel Get(IdParams parameters);
     }
 }

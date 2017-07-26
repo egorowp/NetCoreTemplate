@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using NetCoreTemplate.Domain.Contracts;
-using NetCoreTemplate.Logger;
 using NetCoreTemplate.Logger.NLog;
 
 namespace NetCoreTemplate.IoC.Autofac.Autofac

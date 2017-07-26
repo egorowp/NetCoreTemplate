@@ -7,9 +7,12 @@ namespace NetCoreTemplate.DataAccess.EF
     {
         public IPhoneRepository PhoneRepository { get; set; }
 
-        public RepositoryContext(IPhoneRepository phoneRepository)
+        public IAddressRepository AddressRepository { get; set; }
+
+        public RepositoryContext(IPhoneRepository phoneRepository, IAddressRepository addressRepository)
         {
             PhoneRepository = phoneRepository;
+            AddressRepository = addressRepository;
         }
     }
 }

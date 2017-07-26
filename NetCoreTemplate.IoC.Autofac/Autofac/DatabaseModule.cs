@@ -23,6 +23,7 @@ namespace NetCoreTemplate.IoC.Autofac.Autofac
 
             //Repositories
             builder.RegisterType<PhoneRepository>().As<IPhoneRepository>();
+            builder.RegisterType<AddressRepository>().As<IAddressRepository>();
 
             //RepositoryContext
             builder.RegisterType<RepositoryContext>().As<IRepositoriesContext>();

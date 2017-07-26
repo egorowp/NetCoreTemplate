@@ -8,9 +8,10 @@ using NetCoreTemplate.DataAccess.EF;
 namespace NetCoreTemplate.DataAccess.EF.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20170726130230_Add AddressPhones many-to-many relationship")]
+    partial class AddAddressPhonesmanytomanyrelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

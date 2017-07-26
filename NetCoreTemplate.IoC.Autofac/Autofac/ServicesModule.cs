@@ -10,6 +10,7 @@ namespace NetCoreTemplate.IoC.Autofac.Autofac
         {
             base.Load(builder);
             builder.RegisterType<PhoneManager>().As<IPhoneManager>();
+            builder.RegisterType<AddressManager>().As<IAddressManager>();
         }
     }
 }

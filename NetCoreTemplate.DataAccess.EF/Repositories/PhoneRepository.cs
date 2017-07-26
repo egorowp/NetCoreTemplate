@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using NetCoreTemplate.DataAccess.Contracts;
 using NetCoreTemplate.DataAccess.Contracts.Repositories;
 using NetCoreTemplate.Domain.Contracts;
 using NetCoreTemplate.Domain.Models;
