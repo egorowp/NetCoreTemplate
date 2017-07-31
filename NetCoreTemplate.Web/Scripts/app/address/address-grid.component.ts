@@ -8,7 +8,7 @@ import { AddressesService, AddressGridViewModel, IdParams } from '../../services
 })
 
 export class AddressGridComponent implements OnInit {
-    phones: AddressGridViewModel[];
+    addresses: AddressGridViewModel[];
 
     constructor(
         private router: Router,
@@ -20,28 +20,28 @@ export class AddressGridComponent implements OnInit {
 
     ngOnInit(): void {
         this.reloadGridData();
-        this.eventsService.on('phone-form-saved',
+        this.eventsService.on('address-form-saved',
             () => {
                 this.reloadGridData();
             });
     }
 
     onRowClick(i: number) {
-        var selectedPhoneId = this.phones[i].id;
-        this.router.navigate(['phone', 'edit', selectedPhoneId]);
+        var id = this.addresses[i].id;
+        this.router.navigate(['address', 'edit', id]);
     }
 
-    onPhoneDelete(i: number) {
+    onAddressDelete(i: number) {
         var idParams = new IdParams();
-        idParams.id = this.phones[i].id;
+        idParams.id = this.addresses[i].id;
         this.addressesService.delete(idParams)
             .subscribe(u => this.reloadGridData());
         event.stopPropagation();
-        return false;
+        return false;   
     }
 
     reloadGridData() {
-        this.addressesService.getAll().subscribe(r => { this.phones = r });
+        this.addressesService.getAll().subscribe(r => { this.addresses = r });
     }
 }
 

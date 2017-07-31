@@ -13,7 +13,6 @@ export class AlertService {
     constructor(private injector: Injector) {
         // clear alert messages on route change unless 'keepAfterRouteChange' flag is true
         setTimeout(() => {
-            debugger;
             var router = injector.get(Router);
             router.events.subscribe(event => {
                 if (event instanceof NavigationEnd) {

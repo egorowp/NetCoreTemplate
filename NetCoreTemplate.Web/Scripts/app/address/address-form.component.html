@@ -1,0 +1,42 @@
+﻿<div class="modal fade in show" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" (click)="onClose(); ">&times;</button>
+                <h1 class="modal-title">Address</h1>
+                <span flex></span>
+            </div>
+            <form (ngSubmit)="onPopupSubmit(this)" class="modal-body" #addressForm="ngForm">
+                <div class="form-group">
+                    <label for="Country">Country</label>
+                    <input type="text" class="form-control" id="Country" [(ngModel)]="address.country" name="country" required>
+                </div>
+                <div class="form-group">
+                    <label for="State">State</label>
+                    <input type="text" class="form-control" [(ngModel)]="address.state" name="state" id="State">
+                </div>
+                <div class="form-group">
+                    <label for="City">City</label>
+                    <input type="text" class="form-control" [(ngModel)]="address.city" name="city"  id="City">
+                </div>
+                <div class="form-group">
+                    <label for="Address">Address</label>
+                    <textarea type="text" class="form-control" [(ngModel)]="address.addressLine" name="addressLine"  id="Address"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="PostalCode">Postal Code</label>
+                    <input type="number" class="form-control" [(ngModel)]="address.postalCode" name="postalCode" id="PostalCode">
+                </div>
+                <div class="form-group">
+                    <!--<label for="Phones">Phones</label><br/>
+                    <ss-multiselect-dropdown name="phones" id="Phones" [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>-->
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
