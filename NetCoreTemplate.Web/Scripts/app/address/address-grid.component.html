@@ -13,7 +13,7 @@
             <th>Modify Date</th>
         </tr>
         </thead>
-        <tbody *ngFor="let address of addresses;let i = index">
+        <tbody *ngFor="let address of pagedItems;let i = index">
         <tr (click)="onRowClick(i)">
             <td>{{i + 1}}</td>
             <td> {{address.country}}</td>
@@ -28,15 +28,25 @@
     </table>
 </div>
 
-<div class="container">
-    <ul class="pagination">
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-    </ul>
-</div>
+<!-- pager -->
+<ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+    <li [class.disabled]="pager.currentPage === 1">
+        <a (click)="setPage(1)">First</a>
+    </li>
+    <li [class.disabled]="pager.currentPage === 1">
+        <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+    </li>
+    <li *ngFor="let page of pager.pages" [class.active]="pager.currentPage === page">
+        <a (click)="setPage(page)">{{page}}</a>
+    </li>
+    <li [class.disabled]="pager.currentPage === pager.totalPages">
+        <a (click)="setPage(pager.currentPage + 1)">Next</a>
+    </li>
+    <li [class.disabled]="pager.currentPage === pager.totalPages">
+        <a (click)="setPage(pager.totalPages)">Last</a>
+    </li>
+</ul>
+
 <router-outlet></router-outlet>
 
 

@@ -1,7 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router'
-import { EventsService } from '../../services/events.service';
-import { AddressesService, AddressGridViewModel, IdParams } from '../../services/controller-generated.service';
+import { AddressesService, AddressGridViewModel, IdParams, EventsService, PagerService } from '../../services/index';
 
 @Component({
     templateUrl: 'address-grid.component.html'
@@ -10,11 +9,18 @@ import { AddressesService, AddressGridViewModel, IdParams } from '../../services
 export class AddressGridComponent implements OnInit {
     addresses: AddressGridViewModel[];
 
+    // pager object
+    pager: any = {};
+
+    // paged items
+    pagedItems: any[];
+
     constructor(
         private router: Router,
         private route: ActivatedRoute,
         private addressesService: AddressesService,
-        private eventsService : EventsService,
+        private eventsService: EventsService,
+        private pagerService: PagerService
     ) {
     }
 
@@ -41,7 +47,22 @@ export class AddressGridComponent implements OnInit {
     }
 
     reloadGridData() {
-        this.addressesService.getAll().subscribe(r => { this.addresses = r });
+        this.addressesService.getAll().subscribe(r => {
+            this.addresses = r;
+            this.setPage(1);
+        });
+    }
+
+    setPage(page: number) {
+        if (page < 1 || page > this.pager.totalPages) {
+            return;
+        }
+
+        // get pager object from service
+        this.pager = this.pagerService.getPager(this.addresses.length, page, 2);
+
+        // get current page of items
+        this.pagedItems = this.addresses.slice(this.pager.startIndex, this.pager.endIndex + 1);
     }
 }
 

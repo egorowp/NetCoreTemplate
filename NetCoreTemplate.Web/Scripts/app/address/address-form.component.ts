@@ -3,8 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Http } from '@angular/http';
 import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 
-import { EventsService } from '../../services/events.service';
-import { AddressesService, AddressViewModel, IdParams } from '../../services/controller-generated.service';
+import { EventsService, AddressesService, AddressViewModel, IdParams} from '../../services/index';
 
 
 @Component({

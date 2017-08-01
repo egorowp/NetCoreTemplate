@@ -16,9 +16,7 @@ import { PhoneModule } from './phone/phone.module';
 import { AlertTestModule } from './alert-test/alert-test.module';
 
 //services
-import { EventsService } from '../services/events.service';
-import { GlobalErrorHandler } from '../services/global-error-handler.service';
-import { AlertService } from '../services/alert.service';
+import { PagerService, AlertService, GlobalErrorHandler, EventsService } from '../services/index';
 
 @NgModule({
     imports: [
@@ -38,6 +36,7 @@ import { AlertService } from '../services/alert.service';
     providers: [
         AlertService,
         EventsService,
+        PagerService,
         {
             provide: ErrorHandler,
             useClass: GlobalErrorHandler
