@@ -12,15 +12,12 @@ import { AddressRoutingModule } from './address.routing.module';
 //
 import { AddressesService } from "../../services/controller-generated.service";
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
-        AddressRoutingModule,
-        NgbModule
+        AddressRoutingModule
     ],
     declarations: [
         AddressGridComponent,

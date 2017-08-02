@@ -1,8 +1,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "noStrictGenericChecks": true,
     "outDir": "./dist/out-tsc",
-    "baseUrl": "src",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
@@ -17,4 +17,4 @@
       "dom"
     ]
   }
-}
+} 
