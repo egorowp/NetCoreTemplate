@@ -32164,11 +32164,11 @@ var AddressViewModel = (function (_super) {
     AddressViewModel.prototype.init = function (data) {
         _super.prototype.init.call(this, data);
         if (data) {
-            if (data["phoneIds"] && data["phoneIds"].constructor === Array) {
-                this.phoneIds = [];
-                for (var _i = 0, _a = data["phoneIds"]; _i < _a.length; _i++) {
+            if (data["selectedPhoneIds"] && data["selectedPhoneIds"].constructor === Array) {
+                this.selectedPhoneIds = [];
+                for (var _i = 0, _a = data["selectedPhoneIds"]; _i < _a.length; _i++) {
                     var item = _a[_i];
-                    this.phoneIds.push(item);
+                    this.selectedPhoneIds.push(item);
                 }
             }
             this.postalCode = data["postalCode"];
@@ -32177,6 +32177,13 @@ var AddressViewModel = (function (_super) {
             this.country = data["country"];
             this.city = data["city"];
             this.state = data["state"];
+            if (data["phones"] && data["phones"].constructor === Array) {
+                this.phones = [];
+                for (var _b = 0, _c = data["phones"]; _b < _c.length; _b++) {
+                    var item = _c[_b];
+                    this.phones.push(PhoneLookupViewModel.fromJS(item));
+                }
+            }
         }
     };
     AddressViewModel.fromJS = function (data) {
@@ -32186,11 +32193,11 @@ var AddressViewModel = (function (_super) {
     };
     AddressViewModel.prototype.toJSON = function (data) {
         data = typeof data === 'object' ? data : {};
-        if (this.phoneIds && this.phoneIds.constructor === Array) {
-            data["phoneIds"] = [];
-            for (var _i = 0, _a = this.phoneIds; _i < _a.length; _i++) {
+        if (this.selectedPhoneIds && this.selectedPhoneIds.constructor === Array) {
+            data["selectedPhoneIds"] = [];
+            for (var _i = 0, _a = this.selectedPhoneIds; _i < _a.length; _i++) {
                 var item = _a[_i];
-                data["phoneIds"].push(item);
+                data["selectedPhoneIds"].push(item);
             }
         }
         data["postalCode"] = this.postalCode;
@@ -32199,12 +32206,48 @@ var AddressViewModel = (function (_super) {
         data["country"] = this.country;
         data["city"] = this.city;
         data["state"] = this.state;
+        if (this.phones && this.phones.constructor === Array) {
+            data["phones"] = [];
+            for (var _b = 0, _c = this.phones; _b < _c.length; _b++) {
+                var item = _c[_b];
+                data["phones"].push(item.toJSON());
+            }
+        }
         _super.prototype.toJSON.call(this, data);
         return data;
     };
     return AddressViewModel;
 }(Serializable));
 exports.AddressViewModel = AddressViewModel;
+var PhoneLookupViewModel = (function () {
+    function PhoneLookupViewModel(data) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    this[property] = data[property];
+            }
+        }
+    }
+    PhoneLookupViewModel.prototype.init = function (data) {
+        if (data) {
+            this.id = data["id"];
+            this.name = data["name"];
+        }
+    };
+    PhoneLookupViewModel.fromJS = function (data) {
+        var result = new PhoneLookupViewModel();
+        result.init(data);
+        return result;
+    };
+    PhoneLookupViewModel.prototype.toJSON = function (data) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        return data;
+    };
+    return PhoneLookupViewModel;
+}());
+exports.PhoneLookupViewModel = PhoneLookupViewModel;
 var SaveAddressParams = (function (_super) {
     __extends(SaveAddressParams, _super);
     function SaveAddressParams(data) {
@@ -43125,15 +43168,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(5);
 var router_1 = __webpack_require__(15);
 var http_1 = __webpack_require__(47);
-//import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 var index_1 = __webpack_require__(64);
 var AddressFormComponent = (function () {
-    //myOptions: IMultiSelectOption[];
-    function AddressFormComponent(http, route, router, addressesService, eventsService) {
+    function AddressFormComponent(http, route, router, addressesService, phonesServices, eventsService) {
         this.http = http;
         this.route = route;
         this.router = router;
         this.addressesService = addressesService;
+        this.phonesServices = phonesServices;
         this.eventsService = eventsService;
         this.address = new index_1.AddressViewModel();
         this.address.id = '00000000-0000-0000-0000-000000000000';
@@ -43145,12 +43187,13 @@ var AddressFormComponent = (function () {
             var idParams = new index_1.IdParams();
             idParams.id = selectedPhoneId;
             this.addressesService.get(idParams)
-                .subscribe(function (p) { return _this.address = p; });
+                .subscribe(function (p) {
+                _this.address = p;
+                setTimeout(function () {
+                    $('.selectpicker').selectpicker('refresh');
+                });
+            });
         }
-        //this.myOptions = [
-        //    { id: 1, name: 'Option 1' },
-        //    { id: 2, name: 'Option 2' },
-        //];
     };
     AddressFormComponent.prototype.keyboardInput = function (event) {
         if (event.keyCode === 27) {
@@ -43159,11 +43202,15 @@ var AddressFormComponent = (function () {
     };
     AddressFormComponent.prototype.onPopupSubmit = function () {
         var _this = this;
+        debugger;
         this.addressesService.save(this.address)
             .subscribe(function (p) {
             _this.eventsService.broadcast('address-form-saved');
             _this.router.navigate(['address']);
         });
+    };
+    AddressFormComponent.prototype.onSelectorClick = function () {
+        debugger;
     };
     AddressFormComponent.prototype.onClose = function () {
         this.router.navigate(['address']);
@@ -43184,6 +43231,7 @@ var AddressFormComponent = (function () {
             router_1.ActivatedRoute,
             router_1.Router,
             index_1.AddressesService,
+            index_1.PhonesService,
             index_1.EventsService])
     ], AddressFormComponent);
     return AddressFormComponent;
@@ -43251,7 +43299,6 @@ var AddressGridComponent = (function () {
         if (page < 1 || page > this.pager.totalPages) {
             return;
         }
-        debugger;
         // get pager object from service
         this.pager = this.pagerService.getPager(this.addresses.length, page, 2);
         // get current page of items
@@ -75341,7 +75388,6 @@ var PagerService = (function () {
         for (var i in pages) {
             pages[i] = startPage++;
         }
-        debugger;
         // return object with all pager properties required by the view
         return {
             totalItems: totalItems,
@@ -75434,7 +75480,7 @@ module.exports = win;
 /* 225 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"modal fade in show\" role=\"dialog\">\r\n    <div class=\"modal-dialog\">\r\n        <div class=\"modal-content\" >\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" (click)=\"onClose(); \">&times;</button>\r\n                <h1 class=\"modal-title\">Address</h1>\r\n                <span flex></span>\r\n            </div>\r\n            <form (ngSubmit)=\"onPopupSubmit(this)\" class=\"modal-body\" #addressForm=\"ngForm\">\r\n                <div class=\"form-group\">\r\n                    <label for=\"Country\">Country</label>\r\n                    <input type=\"text\" class=\"form-control\" id=\"Country\" [(ngModel)]=\"address.country\" name=\"country\" required>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"State\">State</label>\r\n                    <input type=\"text\" class=\"form-control\" [(ngModel)]=\"address.state\" name=\"state\" id=\"State\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"City\">City</label>\r\n                    <input type=\"text\" class=\"form-control\" [(ngModel)]=\"address.city\" name=\"city\"  id=\"City\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"Address\">Address</label>\r\n                    <textarea type=\"text\" class=\"form-control\" [(ngModel)]=\"address.addressLine\" name=\"addressLine\"  id=\"Address\"></textarea>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"PostalCode\">Postal Code</label>\r\n                    <input type=\"number\" class=\"form-control\" [(ngModel)]=\"address.postalCode\" name=\"postalCode\" id=\"PostalCode\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <!--<label for=\"Phones\">Phones</label><br/>\r\n                    <ss-multiselect-dropdown name=\"phones\" id=\"Phones\" [options]=\"myOptions\" [(ngModel)]=\"optionsModel\" (ngModelChange)=\"onChange($event)\"></ss-multiselect-dropdown>-->\r\n                </div>\r\n                <div class=\"modal-footer\">\r\n                    <button type=\"submit\" class=\"btn btn-primary\">Save</button>\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n\r\n";
+module.exports = "<div class=\"modal fade in show\" role=\"dialog\">\r\n    <div class=\"modal-dialog\">\r\n        <div class=\"modal-content\" >\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" (click)=\"onClose(); \">&times;</button>\r\n                <h1 class=\"modal-title\">Address</h1>\r\n                <span flex></span>\r\n            </div>\r\n            <form (ngSubmit)=\"onPopupSubmit(this)\" class=\"modal-body\" #addressForm=\"ngForm\">\r\n                <div class=\"form-group\">\r\n                    <label for=\"Country\">Country</label>\r\n                    <input type=\"text\" class=\"form-control\" id=\"Country\" [(ngModel)]=\"address.country\" name=\"country\" required>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"State\">State</label>\r\n                    <input type=\"text\" class=\"form-control\" [(ngModel)]=\"address.state\" name=\"state\" id=\"State\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"City\">City</label>\r\n                    <input type=\"text\" class=\"form-control\" [(ngModel)]=\"address.city\" name=\"city\"  id=\"City\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"Address\">Address</label>\r\n                    <textarea type=\"text\" class=\"form-control\" [(ngModel)]=\"address.addressLine\" name=\"addressLine\"  id=\"Address\"></textarea>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"PostalCode\">Postal Code</label>\r\n                    <input type=\"number\" class=\"form-control\" [(ngModel)]=\"address.postalCode\" name=\"postalCode\" id=\"PostalCode\">\r\n                </div>\r\n\r\n                <div class=\"form-group\">\r\n                    <label for=\"Phones\">Phones</label><br/>\r\n                    <select multiple class=\"form-control\"  [(ngModel)]=\"address.selectedPhoneIds\"  name=\"phones\" id=\"Phones\" >\r\n                        <option *ngFor=\"let phone of address.phones\" value=\"{{phone.id}}\">{{phone.name}}</option>\r\n                    </select>\r\n                </div>\r\n                <div class=\"modal-footer\">\r\n                    <button type=\"submit\" class=\"btn btn-primary\">Save</button>\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n\r\n";
 
 /***/ }),
 /* 226 */

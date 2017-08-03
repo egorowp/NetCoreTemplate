@@ -27,9 +27,12 @@
                     <label for="PostalCode">Postal Code</label>
                     <input type="number" class="form-control" [(ngModel)]="address.postalCode" name="postalCode" id="PostalCode">
                 </div>
+
                 <div class="form-group">
-                    <!--<label for="Phones">Phones</label><br/>
-                    <ss-multiselect-dropdown name="phones" id="Phones" [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>-->
+                    <label for="Phones">Phones</label><br/>
+                    <select multiple class="form-control"  [(ngModel)]="address.selectedPhoneIds"  name="phones" id="Phones" >
+                        <option *ngFor="let phone of address.phones" value="{{phone.id}}">{{phone.name}}</option>
+                    </select>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Save</button>

@@ -1,10 +1,10 @@
 ﻿import { Component, OnInit, HostListener} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Http } from '@angular/http';
-import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 
-import { EventsService, AddressesService, AddressViewModel, IdParams} from '../../services/index';
+import { EventsService, AddressesService, PhonesService, AddressViewModel, IdParams} from '../../services/index';
 
+declare var $: any;
 
 @Component({
     moduleId: module.id.toString(),
@@ -16,14 +16,14 @@ import { EventsService, AddressesService, AddressViewModel, IdParams} from '../.
 export class AddressFormComponent implements OnInit{
 
     private address: AddressViewModel;
-    optionsModel: number[];
-    myOptions: IMultiSelectOption[];
-
+    selectedPhoneIds : any[];
     constructor(
         private http: Http,
         private route: ActivatedRoute,
         private router: Router,
         private addressesService: AddressesService,
+        private phonesServices : PhonesService,
+
         private eventsService: EventsService,
     ) {
         this.address = new AddressViewModel();
@@ -36,12 +36,14 @@ export class AddressFormComponent implements OnInit{
             var idParams = new IdParams();
             idParams.id = selectedPhoneId;
             this.addressesService.get(idParams)
-                .subscribe(p =>  this.address = p);
+                .subscribe(p => {
+                    this.address = p;
+                    setTimeout(() => {
+                        $('.selectpicker').selectpicker('refresh');
+
+                    });
+                });
         }
-        this.myOptions = [
-            { id: 1, name: 'Option 1' },
-            { id: 2, name: 'Option 2' },
-        ];
     }
 
     @HostListener('window:keydown', ['$event'])
@@ -57,6 +59,9 @@ export class AddressFormComponent implements OnInit{
                 this.eventsService.broadcast('address-form-saved');
                 this.router.navigate(['address']);
             });
+    }
+
+    onSelectorClick() {
     }
 
     onClose() {

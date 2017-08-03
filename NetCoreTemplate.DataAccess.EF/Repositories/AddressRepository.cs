@@ -33,7 +33,7 @@ namespace NetCoreTemplate.DataAccess.EF.Repositories
 
         public AddressViewModel Save(SaveAddressParams parameters)
         {
-            var phones = DatabaseContext.Phones.Where(p => parameters.PhoneIds.Contains(p.Id));
+            var phones = DatabaseContext.Phones.Where(p => parameters.SelectedPhoneIds.Contains(p.Id));
             var address = base.Get(parameters.Id);
             if (address != null)
             {
@@ -44,6 +44,7 @@ namespace NetCoreTemplate.DataAccess.EF.Repositories
                 address.ModifyDate = DateTime.Now;
                 address.AddressLine = parameters.AddressLine;
                 address.PostalCode = parameters.PostalCode;
+                DatabaseContext.Entry(address).Collection(a => a.AddressPhones).Load();
                 address.AddressPhones.Clear();
                 Update(address);
             }
@@ -84,6 +85,7 @@ namespace NetCoreTemplate.DataAccess.EF.Repositories
             var address = base.Get(parameters.Id);
             if (address != null)
             {
+                DatabaseContext.Entry(address).Collection(a => a.AddressPhones).Load();
                 var result = new AddressViewModel(address);
                 return result;
             }

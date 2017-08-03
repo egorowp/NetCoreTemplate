@@ -21,10 +21,10 @@ namespace NetCoreTemplate.Domain.ViewModels
             State = address.State;
             AddressLine = address.AddressLine;
             PostalCode = address.PostalCode;
-            PhoneIds = address.AddressPhones.Select(ap => ap.PhoneId);
+            SelectedPhoneIds = address.AddressPhones.Select(ap =>ap.PhoneId);
         }
 
-        public IEnumerable<Guid> PhoneIds { get; set; }
+        public IEnumerable<Guid> SelectedPhoneIds { get; set; }
 
         public string PostalCode { get; set; }
 
@@ -37,5 +37,7 @@ namespace NetCoreTemplate.Domain.ViewModels
         public string City { get; set; }
 
         public string State { get; set; }
+
+        public IEnumerable<PhoneLookupViewModel> Phones { get; set; }
     }
 }

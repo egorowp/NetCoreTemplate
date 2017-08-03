@@ -4075,7 +4075,7 @@ __webpack_require__(159); // Included with Angular CLI.
 /**
  * Need to import at least one locale-data with intl.
  */
-// import 'intl/locale-data/jsonp/en';
+//import 'bootstrap-select/dist/js/bootstrap-select';
 
 
 /***/ }),

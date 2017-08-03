@@ -32,7 +32,6 @@
             pages[i] = startPage++;
         }
 
-        debugger;
         // return object with all pager properties required by the view
         return {
             totalItems: totalItems,

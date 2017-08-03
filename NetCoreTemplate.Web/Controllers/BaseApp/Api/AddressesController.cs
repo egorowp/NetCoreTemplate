@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using NetCoreTemplate.Business.Contracts.Managers;
 using NetCoreTemplate.Domain.Parameters;
@@ -11,9 +12,12 @@ namespace NetCoreTemplate.Web.Controllers.BaseApp.Api
     public class AddressesController : Controller
     {
         private readonly IAddressManager _addressManager;
-        public AddressesController(IAddressManager addressManager)
+        private readonly IPhoneManager _phoneManager;
+
+        public AddressesController(IAddressManager addressManager, IPhoneManager phoneManager)
         {
             _addressManager = addressManager;
+            _phoneManager = phoneManager;
         }
 
         [HttpPost("[action]")]

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using NetCoreTemplate.Business.Contracts.Managers;
 using NetCoreTemplate.DataAccess.Contracts;
 using NetCoreTemplate.Domain.Parameters;
@@ -32,7 +33,11 @@ namespace NetCoreTemplate.Business.Managers
 
         public AddressViewModel Get(IdParams parameters)
         {
-            return _repositoriesContext.AddressRepository.Get(parameters);
+            var result = _repositoriesContext.AddressRepository.Get(parameters);
+            result.Phones = _repositoriesContext.PhoneRepository.GetPhones()
+                .Select(p => new PhoneLookupViewModel() {Id = p.Id, Name = p.Name});
+            return result;
+
         }
     }
 }

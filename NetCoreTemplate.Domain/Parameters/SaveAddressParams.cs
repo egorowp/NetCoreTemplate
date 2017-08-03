@@ -5,7 +5,7 @@ namespace NetCoreTemplate.Domain.Parameters
 {
     public class SaveAddressParams : Serializable
     {
-        public IEnumerable<Guid> PhoneIds { get; set; }
+        public IEnumerable<Guid> SelectedPhoneIds { get; set; }
 
         public string PostalCode { get; set; }
 

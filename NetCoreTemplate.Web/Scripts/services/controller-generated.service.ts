@@ -526,13 +526,14 @@ export interface IIdParams extends ISerializable {
 }
 
 export class AddressViewModel extends Serializable implements IAddressViewModel {
-    phoneIds?: string[] | undefined;
+    selectedPhoneIds?: string[] | undefined;
     postalCode?: string | undefined;
     addressLine?: string | undefined;
     id: string;
     country?: string | undefined;
     city?: string | undefined;
     state?: string | undefined;
+    phones?: PhoneLookupViewModel[] | undefined;
 
     constructor(data?: IAddressViewModel) {
         super(data);
@@ -541,10 +542,10 @@ export class AddressViewModel extends Serializable implements IAddressViewModel 
     init(data?: any) {
         super.init(data);
         if (data) {
-            if (data["phoneIds"] && data["phoneIds"].constructor === Array) {
-                this.phoneIds = [];
-                for (let item of data["phoneIds"])
-                    this.phoneIds.push(item);
+            if (data["selectedPhoneIds"] && data["selectedPhoneIds"].constructor === Array) {
+                this.selectedPhoneIds = [];
+                for (let item of data["selectedPhoneIds"])
+                    this.selectedPhoneIds.push(item);
             }
             this.postalCode = data["postalCode"];
             this.addressLine = data["addressLine"];
@@ -552,6 +553,11 @@ export class AddressViewModel extends Serializable implements IAddressViewModel 
             this.country = data["country"];
             this.city = data["city"];
             this.state = data["state"];
+            if (data["phones"] && data["phones"].constructor === Array) {
+                this.phones = [];
+                for (let item of data["phones"])
+                    this.phones.push(PhoneLookupViewModel.fromJS(item));
+            }
         }
     }
 
@@ -563,10 +569,10 @@ export class AddressViewModel extends Serializable implements IAddressViewModel 
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        if (this.phoneIds && this.phoneIds.constructor === Array) {
-            data["phoneIds"] = [];
-            for (let item of this.phoneIds)
-                data["phoneIds"].push(item);
+        if (this.selectedPhoneIds && this.selectedPhoneIds.constructor === Array) {
+            data["selectedPhoneIds"] = [];
+            for (let item of this.selectedPhoneIds)
+                data["selectedPhoneIds"].push(item);
         }
         data["postalCode"] = this.postalCode;
         data["addressLine"] = this.addressLine;
@@ -574,19 +580,64 @@ export class AddressViewModel extends Serializable implements IAddressViewModel 
         data["country"] = this.country;
         data["city"] = this.city;
         data["state"] = this.state;
+        if (this.phones && this.phones.constructor === Array) {
+            data["phones"] = [];
+            for (let item of this.phones)
+                data["phones"].push(item.toJSON());
+        }
         super.toJSON(data);
         return data; 
     }
 }
 
 export interface IAddressViewModel extends ISerializable {
-    phoneIds?: string[] | undefined;
+    selectedPhoneIds?: string[] | undefined;
     postalCode?: string | undefined;
     addressLine?: string | undefined;
     id: string;
     country?: string | undefined;
     city?: string | undefined;
     state?: string | undefined;
+    phones?: PhoneLookupViewModel[] | undefined;
+}
+
+export class PhoneLookupViewModel implements IPhoneLookupViewModel {
+    id: string;
+    name?: string | undefined;
+
+    constructor(data?: IPhoneLookupViewModel) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.name = data["name"];
+        }
+    }
+
+    static fromJS(data: any): PhoneLookupViewModel {
+        let result = new PhoneLookupViewModel();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        return data; 
+    }
+}
+
+export interface IPhoneLookupViewModel {
+    id: string;
+    name?: string | undefined;
 }
 
 export class SaveAddressParams extends Serializable implements ISaveAddressParams {

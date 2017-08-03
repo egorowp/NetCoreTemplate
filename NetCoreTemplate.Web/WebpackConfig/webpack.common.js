@@ -24,12 +24,12 @@ module.exports = {
             {
                 test: /\.html$/,
                 loader: "html-loader"
-            }//,
-            //{
-            //    test: /\.less$/,
-            //    exclude: /node_modules/,
-            //    loader: 'raw-loader!less-loader'
-            //}
+            },
+            {
+                test: /\.less$/,
+                exclude: /node_modules/,
+                loader: 'raw-loader!less-loader'
+            }
         ]
     },
 
