@@ -6,7 +6,12 @@ namespace NetCoreTemplate.Domain.Models
 {
     public class Phone : IEntity
     {
-        public ICollection<AddressPhone> AddressPhones { get; set; }
+        public Phone()
+        {
+            AddressPhones = new HashSet<AddressPhone>();
+        }
+
+        public HashSet<AddressPhone> AddressPhones { get; set; }
 
         public Guid Id { get; set; }
 

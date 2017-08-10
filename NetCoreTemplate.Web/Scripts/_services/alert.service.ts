@@ -3,7 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
 
-import { Alert, AlertType } from '../models/alert';
+import { Alert, AlertType } from '../_models/alert';
 
 @Injectable()
 export class AlertService {
@@ -49,7 +49,7 @@ export class AlertService {
     }
 
     alert(type: AlertType, message: string, keepAfterRouteChange = false) {
-        setTimeout(e => {
+        setTimeout(() => {
             this.keepAfterRouteChange = keepAfterRouteChange;
             this.subject.next(<Alert>{ type: type, message: message });
         });

@@ -8,7 +8,7 @@ namespace NetCoreTemplate.Domain.Models
     {
         public Address()
         {
-            this.AddressPhones = new HashSet<AddressPhone>();
+            AddressPhones = new HashSet<AddressPhone>();
         }
 
         public HashSet<AddressPhone> AddressPhones { get; set; }

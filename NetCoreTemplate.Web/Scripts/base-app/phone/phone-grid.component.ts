@@ -1,7 +1,8 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router'
-import { EventsService } from '../../services/events.service';
-import { PhonesService, PhoneViewModel, IdParams } from '../../services/controller-generated.service';
+
+import { EventsService } from '../../_services/events.service';
+import { PhonesService, PhoneViewModel, IdParams } from '../../_services/controller-generated.service';
 
 @Component({
     templateUrl: 'phone-grid.component.html'
@@ -35,7 +36,7 @@ export class PhoneGridComponent implements OnInit {
         var idParams = new IdParams();
         idParams.id = this.phones[i].id;
         this.phonesService.delete(idParams)
-            .subscribe(u => this.reloadGridData());
+            .subscribe(() => this.reloadGridData());
         event.stopPropagation();
         return false;
     }

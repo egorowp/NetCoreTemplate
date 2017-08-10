@@ -37,12 +37,16 @@ namespace NetCoreTemplate.Business.Managers
             result.Phones = _repositoriesContext.PhoneRepository.GetPhones()
                 .Select(p => new PhoneLookupViewModel() {Id = p.Id, Name = p.Name});
             return result;
-
         }
 
         public IEnumerable<AddressGridViewModel> GetPage(PagerParams parameters)
         {
             return _repositoriesContext.AddressRepository.GetPage(parameters);
+        }
+
+        public int GetCount()
+        {
+            return _repositoriesContext.AddressRepository.GetCount();
         }
     }
 }

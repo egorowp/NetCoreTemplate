@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using NetCoreTemplate.DataAccess.EF.EntityConfiguration;
 using NetCoreTemplate.Domain.Models;
 
@@ -10,7 +11,7 @@ namespace NetCoreTemplate.DataAccess.EF
 
         public DbSet<Address> Addresses { get; set; }
 
-        // Need to create migrations
+        [Obsolete("Need to create migrations")]
         public DatabaseContext()
         {
         }

@@ -29,7 +29,9 @@
         // create an array of pages to ng-repeat in the pager control
         let pages = new Int32Array(endPage - startPage + 1);
         for (let i in pages) {
-            pages[i] = startPage++;
+            if (pages.hasOwnProperty(i)) {
+                pages[i] = startPage++;
+            }
         }
 
         // return object with all pager properties required by the view

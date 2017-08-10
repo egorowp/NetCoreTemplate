@@ -10,7 +10,7 @@ import { AddressFormComponent } from './address-form.component';
 import { AddressRoutingModule } from './address.routing.module';
 
 //
-import { AddressesService } from "../../services/controller-generated.service";
+import { AddressesService } from "../../_services/controller-generated.service";
 
 
 @NgModule({

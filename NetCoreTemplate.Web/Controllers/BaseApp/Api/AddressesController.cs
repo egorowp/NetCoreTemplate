@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using NetCoreTemplate.Business.Contracts.Managers;
 using NetCoreTemplate.Domain.Parameters;
@@ -12,12 +10,10 @@ namespace NetCoreTemplate.Web.Controllers.BaseApp.Api
     public class AddressesController : Controller
     {
         private readonly IAddressManager _addressManager;
-        private readonly IPhoneManager _phoneManager;
 
         public AddressesController(IAddressManager addressManager, IPhoneManager phoneManager)
         {
             _addressManager = addressManager;
-            _phoneManager = phoneManager;
         }
 
         [HttpPost("[action]")]
@@ -31,10 +27,8 @@ namespace NetCoreTemplate.Web.Controllers.BaseApp.Api
         [HttpPost("[action]")]
         public int GetCount()
         {
-            var addresses = _addressManager.GetAll();
-            return addresses.Count();
+            return _addressManager.GetCount();
         }
-
 
         [HttpPost("[action]")]
         public IEnumerable<AddressGridViewModel> GetPage([FromBody] PagerParams parameters)

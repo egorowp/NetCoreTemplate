@@ -2,12 +2,11 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 
 // components
 import { AppComponent } from './app.component';
-import { AlertComponent } from '../directives/alert.component';
+import { AlertComponent } from '../_directives/alert.component';
 
 // modules
 import { AppRoutingModule } from './app.routing.module';
@@ -16,7 +15,7 @@ import { PhoneModule } from './phone/phone.module';
 import { AlertTestModule } from './alert-test/alert-test.module';
 
 //services
-import { PagerService, AlertService, GlobalErrorHandler, EventsService } from '../services/index';
+import { PagerService, AlertService, GlobalErrorHandler, EventsService } from '../_services/index';
 
 @NgModule({
     imports: [

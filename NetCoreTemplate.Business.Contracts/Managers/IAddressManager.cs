@@ -15,5 +15,7 @@ namespace NetCoreTemplate.Business.Contracts.Managers
         AddressFormViewModel Get(IdParams parameters);
 
         IEnumerable<AddressGridViewModel> GetPage(PagerParams parameters);
+
+        int GetCount();
     }
 }

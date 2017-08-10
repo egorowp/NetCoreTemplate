@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router'
-import { AddressesService, AddressGridViewModel, IdParams, EventsService, PagerService, PagerParams } from '../../services/index';
+import { AddressesService, AddressGridViewModel, IdParams, EventsService, PagerService, PagerParams } from '../../_services/index';
 
 @Component({
     templateUrl: 'address-grid.component.html'

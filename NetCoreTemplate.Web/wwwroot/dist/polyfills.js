@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "http://localhost:8080/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 171);
+/******/ 	return __webpack_require__(__webpack_require__.s = 173);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -4012,7 +4012,9 @@ Zone.__load_patch('util', function (global, Zone, api) {
 /* 168 */,
 /* 169 */,
 /* 170 */,
-/* 171 */
+/* 171 */,
+/* 172 */,
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4079,8 +4081,6 @@ __webpack_require__(159); // Included with Angular CLI.
 
 
 /***/ }),
-/* 172 */,
-/* 173 */,
 /* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 

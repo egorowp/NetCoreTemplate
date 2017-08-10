@@ -15,5 +15,7 @@ namespace NetCoreTemplate.DataAccess.Contracts.Repositories
         AddressFormViewModel Get(IdParams parameters);
 
         IEnumerable<AddressGridViewModel> GetPage(PagerParams parameters);
+
+        int GetCount();
     }
 }

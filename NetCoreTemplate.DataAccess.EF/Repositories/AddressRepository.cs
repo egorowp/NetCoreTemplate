@@ -60,7 +60,7 @@ namespace NetCoreTemplate.DataAccess.EF.Repositories
                     AddressLine = parameters.AddressLine,
                     PostalCode = parameters.PostalCode
                 };
-                base.Add(address);
+                Add(address);
             }
             foreach (var phone in phones)
             {
@@ -107,6 +107,11 @@ namespace NetCoreTemplate.DataAccess.EF.Repositories
                     PostalCode = address.PostalCode
                 }).ToList();
             return result;
+        }
+
+        public int GetCount()
+        {
+            return GetAll().Count();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿import { ErrorHandler, Injectable, Injector } from '@angular/core';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { AlertService } from '../services/alert.service';
+import { AlertService } from '../_services/alert.service';
 
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {

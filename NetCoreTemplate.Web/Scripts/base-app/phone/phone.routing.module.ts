@@ -10,7 +10,7 @@ const routes: Routes = [
         component: PhoneGridComponent,
         children: [
             { path: 'add', component: PhoneFormComponent },
-            { path: 'edit/:id', component: PhoneFormComponent },
+            { path: 'edit/:id', component: PhoneFormComponent }
         ]
     }
 ];

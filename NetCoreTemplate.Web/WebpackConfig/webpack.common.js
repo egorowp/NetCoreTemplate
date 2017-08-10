@@ -4,7 +4,7 @@ var Path = require("path");
 module.exports = {
     entry: {
         'polyfills': "./Scripts/polyfills.ts",
-        'app.bundle': './Scripts/app/main.ts'
+        'app.bundle': './Scripts/base-app/main.ts'
     },
 
     resolve: {

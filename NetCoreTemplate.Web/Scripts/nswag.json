@@ -33,7 +33,7 @@
       "importRequiredTypes": true,
       "useGetBaseUrlMethod": false,
       "baseUrlTokenName": "API_BASE_URL",
-      "output": "services/controller-generated.service.ts"
+      "output": "_services/controller-generated.service.ts"
     }
   }
 }

@@ -1,7 +1,7 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component } from '@angular/core';
 
-import { Alert, AlertType } from '../models/alert';
-import { AlertService } from '../services/alert.service';
+import { Alert, AlertType } from '../_models/alert';
+import { AlertService } from '../_services/alert.service';
 
 @Component({
     moduleId: module.id.toString(),
@@ -33,7 +33,7 @@ export class AlertComponent {
 
     cssClass(alert: Alert) {
         if (!alert) {
-            return;
+            return '';
         }
 
         // return css class based on alert type
@@ -44,7 +44,7 @@ export class AlertComponent {
             return 'alert alert-danger';
         case AlertType.Info:
             return 'alert alert-info';
-        case AlertType.Warning:
+        default :
             return 'alert alert-warning';
         }
     }

@@ -2,32 +2,30 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { Http } from '@angular/http';
 
-import { EventsService, AddressesService, PhonesService, AddressFormViewModel, IdParams} from '../../services/index';
+import { EventsService } from '../../_services/events.service';
+import { PhonesService, PhoneViewModel, IdParams } from '../../_services/controller-generated.service';
 
-declare var $: any;
 
 @Component({
     moduleId: module.id.toString(),
-    selector:'address-form',
-    templateUrl: 'address-form.component.html',
+    selector:'phone-form',
+    templateUrl: 'phone-form.component.html'
     //styleUrls: ['phone.form.component.less']
 })
 
-export class AddressFormComponent implements OnInit{
+export class PhoneFormComponent implements OnInit{
 
-    private address: AddressFormViewModel;
-    selectedPhoneIds : any[];
+    private phone: any;
+
     constructor(
         private http: Http,
         private route: ActivatedRoute,
         private router: Router,
-        private addressesService: AddressesService,
-        private phonesServices : PhonesService,
-
+        private phonesService: PhonesService,
         private eventsService: EventsService,
     ) {
-        this.address = new AddressFormViewModel();
-        this.address.id = '00000000-0000-0000-0000-000000000000';
+        this.phone = new PhoneViewModel();
+        this.phone.id = '00000000-0000-0000-0000-000000000000';
     }
 
     ngOnInit(): void {
@@ -35,8 +33,8 @@ export class AddressFormComponent implements OnInit{
         if (selectedPhoneId != undefined) {
             var idParams = new IdParams();
             idParams.id = selectedPhoneId;
-            this.addressesService.get(idParams)
-                .subscribe(p => {this.address = p;});
+            this.phonesService.get(idParams)
+                .subscribe(p =>  this.phone = p);
         }
     }
 
@@ -48,15 +46,15 @@ export class AddressFormComponent implements OnInit{
     }
 
     onPopupSubmit() {
-        this.addressesService.save(this.address)
-            .subscribe(p => {
-                this.eventsService.broadcast('address-form-saved');
-                this.router.navigate(['address']);
+        this.phonesService.save(this.phone)
+            .subscribe(() => {
+                this.eventsService.broadcast('phone-form-saved');
+                this.router.navigate(['phone']);
             });
     }
 
     onClose() {
-        this.router.navigate(['address']);
+        this.router.navigate(['phone']);
     }
 }
 
