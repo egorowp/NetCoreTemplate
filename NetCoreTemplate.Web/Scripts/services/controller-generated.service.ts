@@ -77,7 +77,98 @@ export class AddressesService {
         return Observable.of<AddressGridViewModel[] | null>(<any>null);
     }
 
-    get(parameters: IdParams | undefined): Observable<AddressViewModel | null> {
+    getCount(): Observable<number | null> {
+        let url_ = this.baseUrl + "/api/Addresses/GetCount";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = {
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetCount(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetCount(response_);
+                } catch (e) {
+                    return <Observable<number>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<number>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetCount(response: Response): Observable<number | null> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const _responseText = response.text();
+            let result200: number | null = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, _responseText);
+        }
+        return Observable.of<number | null>(<any>null);
+    }
+
+    getPage(parameters: PagerParams | undefined): Observable<AddressGridViewModel[] | null> {
+        let url_ = this.baseUrl + "/api/Addresses/GetPage";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(parameters);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetPage(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetPage(response_);
+                } catch (e) {
+                    return <Observable<AddressGridViewModel[]>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<AddressGridViewModel[]>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetPage(response: Response): Observable<AddressGridViewModel[] | null> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const _responseText = response.text();
+            let result200: AddressGridViewModel[] | null = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(AddressGridViewModel.fromJS(item));
+            }
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, _responseText);
+        }
+        return Observable.of<AddressGridViewModel[] | null>(<any>null);
+    }
+
+    get(parameters: IdParams | undefined): Observable<AddressFormViewModel | null> {
         let url_ = this.baseUrl + "/api/Addresses/Get";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -99,30 +190,30 @@ export class AddressesService {
                 try {
                     return this.processGet(response_);
                 } catch (e) {
-                    return <Observable<AddressViewModel>><any>Observable.throw(e);
+                    return <Observable<AddressFormViewModel>><any>Observable.throw(e);
                 }
             } else
-                return <Observable<AddressViewModel>><any>Observable.throw(response_);
+                return <Observable<AddressFormViewModel>><any>Observable.throw(response_);
         });
     }
 
-    protected processGet(response: Response): Observable<AddressViewModel | null> {
+    protected processGet(response: Response): Observable<AddressFormViewModel | null> {
         const status = response.status; 
 
         if (status === 200) {
             const _responseText = response.text();
-            let result200: AddressViewModel | null = null;
+            let result200: AddressFormViewModel | null = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 ? AddressViewModel.fromJS(resultData200) : <any>null;
+            result200 = resultData200 ? AddressFormViewModel.fromJS(resultData200) : <any>null;
             return Observable.of(result200);
         } else if (status !== 200 && status !== 204) {
             const _responseText = response.text();
             return throwException("An unexpected server error occurred.", status, _responseText);
         }
-        return Observable.of<AddressViewModel | null>(<any>null);
+        return Observable.of<AddressFormViewModel | null>(<any>null);
     }
 
-    save(parameters: SaveAddressParams | undefined): Observable<AddressViewModel | null> {
+    save(parameters: SaveAddressParams | undefined): Observable<AddressFormViewModel | null> {
         let url_ = this.baseUrl + "/api/Addresses/Save";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -144,27 +235,27 @@ export class AddressesService {
                 try {
                     return this.processSave(response_);
                 } catch (e) {
-                    return <Observable<AddressViewModel>><any>Observable.throw(e);
+                    return <Observable<AddressFormViewModel>><any>Observable.throw(e);
                 }
             } else
-                return <Observable<AddressViewModel>><any>Observable.throw(response_);
+                return <Observable<AddressFormViewModel>><any>Observable.throw(response_);
         });
     }
 
-    protected processSave(response: Response): Observable<AddressViewModel | null> {
+    protected processSave(response: Response): Observable<AddressFormViewModel | null> {
         const status = response.status; 
 
         if (status === 200) {
             const _responseText = response.text();
-            let result200: AddressViewModel | null = null;
+            let result200: AddressFormViewModel | null = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 ? AddressViewModel.fromJS(resultData200) : <any>null;
+            result200 = resultData200 ? AddressFormViewModel.fromJS(resultData200) : <any>null;
             return Observable.of(result200);
         } else if (status !== 200 && status !== 204) {
             const _responseText = response.text();
             return throwException("An unexpected server error occurred.", status, _responseText);
         }
-        return Observable.of<AddressViewModel | null>(<any>null);
+        return Observable.of<AddressFormViewModel | null>(<any>null);
     }
 
     delete(parameters: IdParams | undefined): Observable<boolean | null> {
@@ -493,6 +584,42 @@ export interface IAddressGridViewModel extends ISerializable {
     state?: string | undefined;
 }
 
+export class PagerParams extends Serializable implements IPagerParams {
+    startIndex: number;
+    endIndex: number;
+
+    constructor(data?: IPagerParams) {
+        super(data);
+    }
+
+    init(data?: any) {
+        super.init(data);
+        if (data) {
+            this.startIndex = data["startIndex"];
+            this.endIndex = data["endIndex"];
+        }
+    }
+
+    static fromJS(data: any): PagerParams {
+        let result = new PagerParams();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["startIndex"] = this.startIndex;
+        data["endIndex"] = this.endIndex;
+        super.toJSON(data);
+        return data; 
+    }
+}
+
+export interface IPagerParams extends ISerializable {
+    startIndex: number;
+    endIndex: number;
+}
+
 export class IdParams extends Serializable implements IIdParams {
     id: string;
 
@@ -525,7 +652,7 @@ export interface IIdParams extends ISerializable {
     id: string;
 }
 
-export class AddressViewModel extends Serializable implements IAddressViewModel {
+export class AddressFormViewModel extends Serializable implements IAddressFormViewModel {
     selectedPhoneIds?: string[] | undefined;
     postalCode?: string | undefined;
     addressLine?: string | undefined;
@@ -535,7 +662,7 @@ export class AddressViewModel extends Serializable implements IAddressViewModel 
     state?: string | undefined;
     phones?: PhoneLookupViewModel[] | undefined;
 
-    constructor(data?: IAddressViewModel) {
+    constructor(data?: IAddressFormViewModel) {
         super(data);
     }
 
@@ -561,8 +688,8 @@ export class AddressViewModel extends Serializable implements IAddressViewModel 
         }
     }
 
-    static fromJS(data: any): AddressViewModel {
-        let result = new AddressViewModel();
+    static fromJS(data: any): AddressFormViewModel {
+        let result = new AddressFormViewModel();
         result.init(data);
         return result;
     }
@@ -590,7 +717,7 @@ export class AddressViewModel extends Serializable implements IAddressViewModel 
     }
 }
 
-export interface IAddressViewModel extends ISerializable {
+export interface IAddressFormViewModel extends ISerializable {
     selectedPhoneIds?: string[] | undefined;
     postalCode?: string | undefined;
     addressLine?: string | undefined;
@@ -641,7 +768,7 @@ export interface IPhoneLookupViewModel {
 }
 
 export class SaveAddressParams extends Serializable implements ISaveAddressParams {
-    phoneIds?: string[] | undefined;
+    selectedPhoneIds?: string[] | undefined;
     postalCode?: string | undefined;
     addressLine?: string | undefined;
     id: string;
@@ -656,10 +783,10 @@ export class SaveAddressParams extends Serializable implements ISaveAddressParam
     init(data?: any) {
         super.init(data);
         if (data) {
-            if (data["phoneIds"] && data["phoneIds"].constructor === Array) {
-                this.phoneIds = [];
-                for (let item of data["phoneIds"])
-                    this.phoneIds.push(item);
+            if (data["selectedPhoneIds"] && data["selectedPhoneIds"].constructor === Array) {
+                this.selectedPhoneIds = [];
+                for (let item of data["selectedPhoneIds"])
+                    this.selectedPhoneIds.push(item);
             }
             this.postalCode = data["postalCode"];
             this.addressLine = data["addressLine"];
@@ -678,10 +805,10 @@ export class SaveAddressParams extends Serializable implements ISaveAddressParam
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        if (this.phoneIds && this.phoneIds.constructor === Array) {
-            data["phoneIds"] = [];
-            for (let item of this.phoneIds)
-                data["phoneIds"].push(item);
+        if (this.selectedPhoneIds && this.selectedPhoneIds.constructor === Array) {
+            data["selectedPhoneIds"] = [];
+            for (let item of this.selectedPhoneIds)
+                data["selectedPhoneIds"].push(item);
         }
         data["postalCode"] = this.postalCode;
         data["addressLine"] = this.addressLine;
@@ -695,7 +822,7 @@ export class SaveAddressParams extends Serializable implements ISaveAddressParam
 }
 
 export interface ISaveAddressParams extends ISerializable {
-    phoneIds?: string[] | undefined;
+    selectedPhoneIds?: string[] | undefined;
     postalCode?: string | undefined;
     addressLine?: string | undefined;
     id: string;

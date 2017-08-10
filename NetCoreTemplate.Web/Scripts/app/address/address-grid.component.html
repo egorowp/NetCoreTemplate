@@ -13,7 +13,7 @@
             <th>Modify Date</th>
         </tr>
         </thead>
-        <tbody *ngFor="let address of pagedItems;let i = index">
+        <tbody *ngFor="let address of addresses;let i = index">
         <tr (click)="onRowClick(i)">
             <td>{{i + 1}}</td>
             <td> {{address.country}}</td>

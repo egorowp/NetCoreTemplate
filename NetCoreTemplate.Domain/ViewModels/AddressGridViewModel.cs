@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using NetCoreTemplate.Domain.Models;
 
 namespace NetCoreTemplate.Domain.ViewModels
 {
     public class AddressGridViewModel : Serializable
     {
-
         public AddressGridViewModel()
         {
 

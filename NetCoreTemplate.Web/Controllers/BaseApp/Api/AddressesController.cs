@@ -27,15 +27,33 @@ namespace NetCoreTemplate.Web.Controllers.BaseApp.Api
             return addresses;
         }
 
+
         [HttpPost("[action]")]
-        public AddressViewModel Get([FromBody] IdParams parameters)
+        public int GetCount()
+        {
+            var addresses = _addressManager.GetAll();
+            return addresses.Count();
+        }
+
+
+        [HttpPost("[action]")]
+        public IEnumerable<AddressGridViewModel> GetPage([FromBody] PagerParams parameters)
+        {
+            var data = _addressManager.GetPage(parameters);
+
+            return data;
+        }
+
+
+        [HttpPost("[action]")]
+        public AddressFormViewModel Get([FromBody] IdParams parameters)
         {
             var addressViewModel = _addressManager.Get(parameters);
             return addressViewModel;
         }
 
         [HttpPost("[action]")]
-        public AddressViewModel Save([FromBody] SaveAddressParams parameters)
+        public AddressFormViewModel Save([FromBody] SaveAddressParams parameters)
         {
             var phone = _addressManager.Save(parameters);
             return phone;

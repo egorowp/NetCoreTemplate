@@ -8,10 +8,12 @@ namespace NetCoreTemplate.DataAccess.Contracts.Repositories
     {
         IEnumerable<AddressGridViewModel> GetAddresses();
 
-        AddressViewModel Save(SaveAddressParams parameters);
+        AddressFormViewModel Save(SaveAddressParams parameters);
 
         bool Delete(IdParams parameters);
 
-        AddressViewModel Get(IdParams parameters);
+        AddressFormViewModel Get(IdParams parameters);
+
+        IEnumerable<AddressGridViewModel> GetPage(PagerParams parameters);
     }
 }

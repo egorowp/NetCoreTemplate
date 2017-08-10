@@ -2,7 +2,7 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { Http } from '@angular/http';
 
-import { EventsService, AddressesService, PhonesService, AddressViewModel, IdParams} from '../../services/index';
+import { EventsService, AddressesService, PhonesService, AddressFormViewModel, IdParams} from '../../services/index';
 
 declare var $: any;
 
@@ -15,7 +15,7 @@ declare var $: any;
 
 export class AddressFormComponent implements OnInit{
 
-    private address: AddressViewModel;
+    private address: AddressFormViewModel;
     selectedPhoneIds : any[];
     constructor(
         private http: Http,
@@ -26,7 +26,7 @@ export class AddressFormComponent implements OnInit{
 
         private eventsService: EventsService,
     ) {
-        this.address = new AddressViewModel();
+        this.address = new AddressFormViewModel();
         this.address.id = '00000000-0000-0000-0000-000000000000';
     }
 
@@ -36,13 +36,7 @@ export class AddressFormComponent implements OnInit{
             var idParams = new IdParams();
             idParams.id = selectedPhoneId;
             this.addressesService.get(idParams)
-                .subscribe(p => {
-                    this.address = p;
-                    setTimeout(() => {
-                        $('.selectpicker').selectpicker('refresh');
-
-                    });
-                });
+                .subscribe(p => {this.address = p;});
         }
     }
 
@@ -59,9 +53,6 @@ export class AddressFormComponent implements OnInit{
                 this.eventsService.broadcast('address-form-saved');
                 this.router.navigate(['address']);
             });
-    }
-
-    onSelectorClick() {
     }
 
     onClose() {

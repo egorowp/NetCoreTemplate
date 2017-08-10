@@ -5,15 +5,15 @@ using NetCoreTemplate.Domain.Models;
 
 namespace NetCoreTemplate.Domain.ViewModels
 {
-    public class AddressViewModel : Serializable
+    public class AddressFormViewModel : Serializable
     {
 
-        public AddressViewModel()
+        public AddressFormViewModel()
         {
 
         }
 
-        public AddressViewModel(Address address)
+        public AddressFormViewModel(Address address)
         {
             Id = address.Id;
             Country = address.Country;

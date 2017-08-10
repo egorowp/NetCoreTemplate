@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router'
-import { AddressesService, AddressGridViewModel, IdParams, EventsService, PagerService } from '../../services/index';
+import { AddressesService, AddressGridViewModel, IdParams, EventsService, PagerService, PagerParams } from '../../services/index';
 
 @Component({
     templateUrl: 'address-grid.component.html'
@@ -8,12 +8,11 @@ import { AddressesService, AddressGridViewModel, IdParams, EventsService, PagerS
 
 export class AddressGridComponent implements OnInit {
     addresses: AddressGridViewModel[];
-
+    addressesCount: number;
+    currentPage: number = 1;
+    pageLength : number = 5;
     // pager object
     pager: any = {};
-
-    // paged items
-    pagedItems: any[];
 
     constructor(
         private router: Router,
@@ -47,9 +46,9 @@ export class AddressGridComponent implements OnInit {
     }
 
     reloadGridData() {
-        this.addressesService.getAll().subscribe(r => {
-            this.addresses = r;
-            this.setPage(1);
+        this.addressesService.getCount().subscribe(r => {
+            this.addressesCount = r;
+            this.setPage(this.currentPage);
         });
     }
 
@@ -57,12 +56,17 @@ export class AddressGridComponent implements OnInit {
         if (page < 1 || page > this.pager.totalPages) {
             return;
         }
-
         // get pager object from service
-        this.pager = this.pagerService.getPager(this.addresses.length, page, 2);
+        this.pager = this.pagerService.getPager(this.addressesCount, page, this.pageLength);
 
-        // get current page of items
-        this.pagedItems = this.addresses.slice(this.pager.startIndex, this.pager.endIndex + 1);
+        var params = new PagerParams();
+        params.startIndex = this.pager.startIndex;
+        params.endIndex = this.pager.endIndex + 1;
+
+        this.addressesService.getPage(params).subscribe(r => {
+            this.addresses = r;
+        });
+        this.currentPage = page;
     }
 }
 

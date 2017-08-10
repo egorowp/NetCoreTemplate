@@ -21,7 +21,7 @@ namespace NetCoreTemplate.Business.Managers
             return _repositoriesContext.AddressRepository.GetAddresses();
         }
 
-        public AddressViewModel Save(SaveAddressParams parameters)
+        public AddressFormViewModel Save(SaveAddressParams parameters)
         {
             return _repositoriesContext.AddressRepository.Save(parameters);
         }
@@ -31,13 +31,18 @@ namespace NetCoreTemplate.Business.Managers
             return _repositoriesContext.AddressRepository.Delete(parameters);
         }
 
-        public AddressViewModel Get(IdParams parameters)
+        public AddressFormViewModel Get(IdParams parameters)
         {
             var result = _repositoriesContext.AddressRepository.Get(parameters);
             result.Phones = _repositoriesContext.PhoneRepository.GetPhones()
                 .Select(p => new PhoneLookupViewModel() {Id = p.Id, Name = p.Name});
             return result;
 
+        }
+
+        public IEnumerable<AddressGridViewModel> GetPage(PagerParams parameters)
+        {
+            return _repositoriesContext.AddressRepository.GetPage(parameters);
         }
     }
 }

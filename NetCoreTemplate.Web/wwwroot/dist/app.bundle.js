@@ -31742,6 +31742,96 @@ var AddressesService = (function () {
         }
         return Observable_1.Observable.of(null);
     };
+    AddressesService.prototype.getCount = function () {
+        var _this = this;
+        var url_ = this.baseUrl + "/api/Addresses/GetCount";
+        url_ = url_.replace(/[?&]$/, "");
+        var options_ = {
+            method: "post",
+            headers: new http_1.Headers({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+        return this.http.request(url_, options_).flatMap(function (response_) {
+            return _this.processGetCount(response_);
+        }).catch(function (response_) {
+            if (response_ instanceof http_1.Response) {
+                try {
+                    return _this.processGetCount(response_);
+                }
+                catch (e) {
+                    return Observable_1.Observable.throw(e);
+                }
+            }
+            else
+                return Observable_1.Observable.throw(response_);
+        });
+    };
+    AddressesService.prototype.processGetCount = function (response) {
+        var status = response.status;
+        if (status === 200) {
+            var _responseText = response.text();
+            var result200 = null;
+            var resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : null;
+            return Observable_1.Observable.of(result200);
+        }
+        else if (status !== 200 && status !== 204) {
+            var _responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, _responseText);
+        }
+        return Observable_1.Observable.of(null);
+    };
+    AddressesService.prototype.getPage = function (parameters) {
+        var _this = this;
+        var url_ = this.baseUrl + "/api/Addresses/GetPage";
+        url_ = url_.replace(/[?&]$/, "");
+        var content_ = JSON.stringify(parameters);
+        var options_ = {
+            body: content_,
+            method: "post",
+            headers: new http_1.Headers({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+        return this.http.request(url_, options_).flatMap(function (response_) {
+            return _this.processGetPage(response_);
+        }).catch(function (response_) {
+            if (response_ instanceof http_1.Response) {
+                try {
+                    return _this.processGetPage(response_);
+                }
+                catch (e) {
+                    return Observable_1.Observable.throw(e);
+                }
+            }
+            else
+                return Observable_1.Observable.throw(response_);
+        });
+    };
+    AddressesService.prototype.processGetPage = function (response) {
+        var status = response.status;
+        if (status === 200) {
+            var _responseText = response.text();
+            var result200 = null;
+            var resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (var _i = 0, resultData200_2 = resultData200; _i < resultData200_2.length; _i++) {
+                    var item = resultData200_2[_i];
+                    result200.push(AddressGridViewModel.fromJS(item));
+                }
+            }
+            return Observable_1.Observable.of(result200);
+        }
+        else if (status !== 200 && status !== 204) {
+            var _responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, _responseText);
+        }
+        return Observable_1.Observable.of(null);
+    };
     AddressesService.prototype.get = function (parameters) {
         var _this = this;
         var url_ = this.baseUrl + "/api/Addresses/Get";
@@ -31776,7 +31866,7 @@ var AddressesService = (function () {
             var _responseText = response.text();
             var result200 = null;
             var resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 ? AddressViewModel.fromJS(resultData200) : null;
+            result200 = resultData200 ? AddressFormViewModel.fromJS(resultData200) : null;
             return Observable_1.Observable.of(result200);
         }
         else if (status !== 200 && status !== 204) {
@@ -31819,7 +31909,7 @@ var AddressesService = (function () {
             var _responseText = response.text();
             var result200 = null;
             var resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 ? AddressViewModel.fromJS(resultData200) : null;
+            result200 = resultData200 ? AddressFormViewModel.fromJS(resultData200) : null;
             return Observable_1.Observable.of(result200);
         }
         else if (status !== 200 && status !== 204) {
@@ -31919,8 +32009,8 @@ var PhonesService = (function () {
             var resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             if (resultData200 && resultData200.constructor === Array) {
                 result200 = [];
-                for (var _i = 0, resultData200_2 = resultData200; _i < resultData200_2.length; _i++) {
-                    var item = resultData200_2[_i];
+                for (var _i = 0, resultData200_3 = resultData200; _i < resultData200_3.length; _i++) {
+                    var item = resultData200_3[_i];
                     result200.push(PhoneViewModel.fromJS(item));
                 }
             }
@@ -32131,6 +32221,33 @@ var AddressGridViewModel = (function (_super) {
     return AddressGridViewModel;
 }(Serializable));
 exports.AddressGridViewModel = AddressGridViewModel;
+var PagerParams = (function (_super) {
+    __extends(PagerParams, _super);
+    function PagerParams(data) {
+        return _super.call(this, data) || this;
+    }
+    PagerParams.prototype.init = function (data) {
+        _super.prototype.init.call(this, data);
+        if (data) {
+            this.startIndex = data["startIndex"];
+            this.endIndex = data["endIndex"];
+        }
+    };
+    PagerParams.fromJS = function (data) {
+        var result = new PagerParams();
+        result.init(data);
+        return result;
+    };
+    PagerParams.prototype.toJSON = function (data) {
+        data = typeof data === 'object' ? data : {};
+        data["startIndex"] = this.startIndex;
+        data["endIndex"] = this.endIndex;
+        _super.prototype.toJSON.call(this, data);
+        return data;
+    };
+    return PagerParams;
+}(Serializable));
+exports.PagerParams = PagerParams;
 var IdParams = (function (_super) {
     __extends(IdParams, _super);
     function IdParams(data) {
@@ -32156,12 +32273,12 @@ var IdParams = (function (_super) {
     return IdParams;
 }(Serializable));
 exports.IdParams = IdParams;
-var AddressViewModel = (function (_super) {
-    __extends(AddressViewModel, _super);
-    function AddressViewModel(data) {
+var AddressFormViewModel = (function (_super) {
+    __extends(AddressFormViewModel, _super);
+    function AddressFormViewModel(data) {
         return _super.call(this, data) || this;
     }
-    AddressViewModel.prototype.init = function (data) {
+    AddressFormViewModel.prototype.init = function (data) {
         _super.prototype.init.call(this, data);
         if (data) {
             if (data["selectedPhoneIds"] && data["selectedPhoneIds"].constructor === Array) {
@@ -32186,12 +32303,12 @@ var AddressViewModel = (function (_super) {
             }
         }
     };
-    AddressViewModel.fromJS = function (data) {
-        var result = new AddressViewModel();
+    AddressFormViewModel.fromJS = function (data) {
+        var result = new AddressFormViewModel();
         result.init(data);
         return result;
     };
-    AddressViewModel.prototype.toJSON = function (data) {
+    AddressFormViewModel.prototype.toJSON = function (data) {
         data = typeof data === 'object' ? data : {};
         if (this.selectedPhoneIds && this.selectedPhoneIds.constructor === Array) {
             data["selectedPhoneIds"] = [];
@@ -32216,9 +32333,9 @@ var AddressViewModel = (function (_super) {
         _super.prototype.toJSON.call(this, data);
         return data;
     };
-    return AddressViewModel;
+    return AddressFormViewModel;
 }(Serializable));
-exports.AddressViewModel = AddressViewModel;
+exports.AddressFormViewModel = AddressFormViewModel;
 var PhoneLookupViewModel = (function () {
     function PhoneLookupViewModel(data) {
         if (data) {
@@ -32256,11 +32373,11 @@ var SaveAddressParams = (function (_super) {
     SaveAddressParams.prototype.init = function (data) {
         _super.prototype.init.call(this, data);
         if (data) {
-            if (data["phoneIds"] && data["phoneIds"].constructor === Array) {
-                this.phoneIds = [];
-                for (var _i = 0, _a = data["phoneIds"]; _i < _a.length; _i++) {
+            if (data["selectedPhoneIds"] && data["selectedPhoneIds"].constructor === Array) {
+                this.selectedPhoneIds = [];
+                for (var _i = 0, _a = data["selectedPhoneIds"]; _i < _a.length; _i++) {
                     var item = _a[_i];
-                    this.phoneIds.push(item);
+                    this.selectedPhoneIds.push(item);
                 }
             }
             this.postalCode = data["postalCode"];
@@ -32278,11 +32395,11 @@ var SaveAddressParams = (function (_super) {
     };
     SaveAddressParams.prototype.toJSON = function (data) {
         data = typeof data === 'object' ? data : {};
-        if (this.phoneIds && this.phoneIds.constructor === Array) {
-            data["phoneIds"] = [];
-            for (var _i = 0, _a = this.phoneIds; _i < _a.length; _i++) {
+        if (this.selectedPhoneIds && this.selectedPhoneIds.constructor === Array) {
+            data["selectedPhoneIds"] = [];
+            for (var _i = 0, _a = this.selectedPhoneIds; _i < _a.length; _i++) {
                 var item = _a[_i];
-                data["phoneIds"].push(item);
+                data["selectedPhoneIds"].push(item);
             }
         }
         data["postalCode"] = this.postalCode;
@@ -43177,7 +43294,7 @@ var AddressFormComponent = (function () {
         this.addressesService = addressesService;
         this.phonesServices = phonesServices;
         this.eventsService = eventsService;
-        this.address = new index_1.AddressViewModel();
+        this.address = new index_1.AddressFormViewModel();
         this.address.id = '00000000-0000-0000-0000-000000000000';
     }
     AddressFormComponent.prototype.ngOnInit = function () {
@@ -43187,12 +43304,7 @@ var AddressFormComponent = (function () {
             var idParams = new index_1.IdParams();
             idParams.id = selectedPhoneId;
             this.addressesService.get(idParams)
-                .subscribe(function (p) {
-                _this.address = p;
-                setTimeout(function () {
-                    $('.selectpicker').selectpicker('refresh');
-                });
-            });
+                .subscribe(function (p) { _this.address = p; });
         }
     };
     AddressFormComponent.prototype.keyboardInput = function (event) {
@@ -43202,15 +43314,11 @@ var AddressFormComponent = (function () {
     };
     AddressFormComponent.prototype.onPopupSubmit = function () {
         var _this = this;
-        debugger;
         this.addressesService.save(this.address)
             .subscribe(function (p) {
             _this.eventsService.broadcast('address-form-saved');
             _this.router.navigate(['address']);
         });
-    };
-    AddressFormComponent.prototype.onSelectorClick = function () {
-        debugger;
     };
     AddressFormComponent.prototype.onClose = function () {
         this.router.navigate(['address']);
@@ -43265,6 +43373,8 @@ var AddressGridComponent = (function () {
         this.addressesService = addressesService;
         this.eventsService = eventsService;
         this.pagerService = pagerService;
+        this.currentPage = 1;
+        this.pageLength = 5;
         // pager object
         this.pager = {};
     }
@@ -43290,19 +43400,25 @@ var AddressGridComponent = (function () {
     };
     AddressGridComponent.prototype.reloadGridData = function () {
         var _this = this;
-        this.addressesService.getAll().subscribe(function (r) {
-            _this.addresses = r;
-            _this.setPage(1);
+        this.addressesService.getCount().subscribe(function (r) {
+            _this.addressesCount = r;
+            _this.setPage(_this.currentPage);
         });
     };
     AddressGridComponent.prototype.setPage = function (page) {
+        var _this = this;
         if (page < 1 || page > this.pager.totalPages) {
             return;
         }
         // get pager object from service
-        this.pager = this.pagerService.getPager(this.addresses.length, page, 2);
-        // get current page of items
-        this.pagedItems = this.addresses.slice(this.pager.startIndex, this.pager.endIndex + 1);
+        this.pager = this.pagerService.getPager(this.addressesCount, page, this.pageLength);
+        var params = new index_1.PagerParams();
+        params.startIndex = this.pager.startIndex;
+        params.endIndex = this.pager.endIndex + 1;
+        this.addressesService.getPage(params).subscribe(function (r) {
+            _this.addresses = r;
+        });
+        this.currentPage = page;
     };
     AddressGridComponent = __decorate([
         core_1.Component({
@@ -75480,13 +75596,13 @@ module.exports = win;
 /* 225 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"modal fade in show\" role=\"dialog\">\r\n    <div class=\"modal-dialog\">\r\n        <div class=\"modal-content\" >\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" (click)=\"onClose(); \">&times;</button>\r\n                <h1 class=\"modal-title\">Address</h1>\r\n                <span flex></span>\r\n            </div>\r\n            <form (ngSubmit)=\"onPopupSubmit(this)\" class=\"modal-body\" #addressForm=\"ngForm\">\r\n                <div class=\"form-group\">\r\n                    <label for=\"Country\">Country</label>\r\n                    <input type=\"text\" class=\"form-control\" id=\"Country\" [(ngModel)]=\"address.country\" name=\"country\" required>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"State\">State</label>\r\n                    <input type=\"text\" class=\"form-control\" [(ngModel)]=\"address.state\" name=\"state\" id=\"State\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"City\">City</label>\r\n                    <input type=\"text\" class=\"form-control\" [(ngModel)]=\"address.city\" name=\"city\"  id=\"City\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"Address\">Address</label>\r\n                    <textarea type=\"text\" class=\"form-control\" [(ngModel)]=\"address.addressLine\" name=\"addressLine\"  id=\"Address\"></textarea>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"PostalCode\">Postal Code</label>\r\n                    <input type=\"number\" class=\"form-control\" [(ngModel)]=\"address.postalCode\" name=\"postalCode\" id=\"PostalCode\">\r\n                </div>\r\n\r\n                <div class=\"form-group\">\r\n                    <label for=\"Phones\">Phones</label><br/>\r\n                    <select multiple class=\"form-control\"  [(ngModel)]=\"address.selectedPhoneIds\"  name=\"phones\" id=\"Phones\" >\r\n                        <option *ngFor=\"let phone of address.phones\" value=\"{{phone.id}}\">{{phone.name}}</option>\r\n                    </select>\r\n                </div>\r\n                <div class=\"modal-footer\">\r\n                    <button type=\"submit\" class=\"btn btn-primary\">Save</button>\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n\r\n";
+module.exports = "<div class=\"modal fade in show\" role=\"dialog\">\r\n    <div class=\"modal-dialog\">\r\n        <div class=\"modal-content\" >\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" (click)=\"onClose(); \">&times;</button>\r\n                <h1 class=\"modal-title\">Address</h1>\r\n                <span flex></span>\r\n            </div>\r\n            <form (ngSubmit)=\"onPopupSubmit(this)\" class=\"modal-body\" #addressForm=\"ngForm\">\r\n                <div class=\"form-group\">\r\n                    <label for=\"Country\">Country</label>\r\n                    <input type=\"text\" class=\"form-control\" id=\"Country\" [(ngModel)]=\"address.country\" name=\"country\" required>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"State\">State</label>\r\n                    <input type=\"text\" class=\"form-control\" [(ngModel)]=\"address.state\" name=\"state\" id=\"State\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"City\">City</label>\r\n                    <input type=\"text\" class=\"form-control\" [(ngModel)]=\"address.city\" name=\"city\"  id=\"City\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"Address\">Address</label>\r\n                    <textarea type=\"text\" class=\"form-control\" [(ngModel)]=\"address.addressLine\" name=\"addressLine\"  id=\"Address\"></textarea>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"PostalCode\">Postal Code</label>\r\n                    <input type=\"number\" class=\"form-control\" [(ngModel)]=\"address.postalCode\" name=\"postalCode\" id=\"PostalCode\">\r\n                </div>\r\n\r\n                <div class=\"form-group\">\r\n                    <label for=\"Phones\">Phones</label><br/>\r\n                    <select multiple class=\"form-control\"  [(ngModel)]=\"address.selectedPhoneIds\"  name=\"phones\" id=\"Phones\" >\r\n                        <option *ngFor=\"let phone of address.phones\" [value]=\"phone.id\">{{phone.name}}</option>\r\n                    </select>\r\n                </div>\r\n                <div class=\"modal-footer\">\r\n                    <button type=\"submit\" class=\"btn btn-primary\">Save</button>\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n\r\n";
 
 /***/ }),
 /* 226 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\r\n    <h1>Addresses</h1>\r\n    <a class=\"btn btn-info btn-lg\" routerLink=\"./add\" >New Address</a>\r\n    <table class=\"table table-striped\">\r\n        <thead>\r\n        <tr>\r\n            <th>#</th>\r\n            <th>Country</th>\r\n            <th>State</th>\r\n            <th>City</th>\r\n            <th>Address</th>\r\n            <th>Postal Code</th>\r\n            <th>Modify Date</th>\r\n        </tr>\r\n        </thead>\r\n        <tbody *ngFor=\"let address of pagedItems;let i = index\">\r\n        <tr (click)=\"onRowClick(i)\">\r\n            <td>{{i + 1}}</td>\r\n            <td> {{address.country}}</td>\r\n            <td>{{address.state}}</td>\r\n            <td>{{address.city}}</td>\r\n            <td>{{address.addressLine}}</td>\r\n            <td>{{address.postalCode}}</td>\r\n            <td>{{address.modifyDate | date : \"dd/MM/y\"}}</td>\r\n            <td class=\"close\" (click)=\"onAddressDelete(i);\">x</td>\r\n        </tr>\r\n        </tbody>\r\n    </table>\r\n</div>\r\n\r\n<!-- pager -->\r\n<ul *ngIf=\"pager.pages && pager.pages.length\" class=\"pagination\">\r\n    <li [class.disabled]=\"pager.currentPage === 1\">\r\n        <a (click)=\"setPage(1)\">First</a>\r\n    </li>\r\n    <li [class.disabled]=\"pager.currentPage === 1\">\r\n        <a (click)=\"setPage(pager.currentPage - 1)\">Previous</a>\r\n    </li>\r\n    <li *ngFor=\"let page of pager.pages\" [class.active]=\"pager.currentPage === page\">\r\n        <a (click)=\"setPage(page)\">{{page}}</a>\r\n    </li>\r\n    <li [class.disabled]=\"pager.currentPage === pager.totalPages\">\r\n        <a (click)=\"setPage(pager.currentPage + 1)\">Next</a>\r\n    </li>\r\n    <li [class.disabled]=\"pager.currentPage === pager.totalPages\">\r\n        <a (click)=\"setPage(pager.totalPages)\">Last</a>\r\n    </li>\r\n</ul>\r\n\r\n<router-outlet></router-outlet>\r\n\r\n\r\n";
+module.exports = "<div class=\"container\">\r\n    <h1>Addresses</h1>\r\n    <a class=\"btn btn-info btn-lg\" routerLink=\"./add\" >New Address</a>\r\n    <table class=\"table table-striped\">\r\n        <thead>\r\n        <tr>\r\n            <th>#</th>\r\n            <th>Country</th>\r\n            <th>State</th>\r\n            <th>City</th>\r\n            <th>Address</th>\r\n            <th>Postal Code</th>\r\n            <th>Modify Date</th>\r\n        </tr>\r\n        </thead>\r\n        <tbody *ngFor=\"let address of addresses;let i = index\">\r\n        <tr (click)=\"onRowClick(i)\">\r\n            <td>{{i + 1}}</td>\r\n            <td> {{address.country}}</td>\r\n            <td>{{address.state}}</td>\r\n            <td>{{address.city}}</td>\r\n            <td>{{address.addressLine}}</td>\r\n            <td>{{address.postalCode}}</td>\r\n            <td>{{address.modifyDate | date : \"dd/MM/y\"}}</td>\r\n            <td class=\"close\" (click)=\"onAddressDelete(i);\">x</td>\r\n        </tr>\r\n        </tbody>\r\n    </table>\r\n</div>\r\n\r\n<!-- pager -->\r\n<ul *ngIf=\"pager.pages && pager.pages.length\" class=\"pagination\">\r\n    <li [class.disabled]=\"pager.currentPage === 1\">\r\n        <a (click)=\"setPage(1)\">First</a>\r\n    </li>\r\n    <li [class.disabled]=\"pager.currentPage === 1\">\r\n        <a (click)=\"setPage(pager.currentPage - 1)\">Previous</a>\r\n    </li>\r\n    <li *ngFor=\"let page of pager.pages\" [class.active]=\"pager.currentPage === page\">\r\n        <a (click)=\"setPage(page)\">{{page}}</a>\r\n    </li>\r\n    <li [class.disabled]=\"pager.currentPage === pager.totalPages\">\r\n        <a (click)=\"setPage(pager.currentPage + 1)\">Next</a>\r\n    </li>\r\n    <li [class.disabled]=\"pager.currentPage === pager.totalPages\">\r\n        <a (click)=\"setPage(pager.totalPages)\">Last</a>\r\n    </li>\r\n</ul>\r\n\r\n<router-outlet></router-outlet>\r\n\r\n\r\n";
 
 /***/ }),
 /* 227 */

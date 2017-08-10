@@ -31,7 +31,7 @@ namespace NetCoreTemplate.DataAccess.EF.Repositories
             return result;
         }
 
-        public AddressViewModel Save(SaveAddressParams parameters)
+        public AddressFormViewModel Save(SaveAddressParams parameters)
         {
             var phones = DatabaseContext.Phones.Where(p => parameters.SelectedPhoneIds.Contains(p.Id));
             var address = base.Get(parameters.Id);
@@ -67,7 +67,7 @@ namespace NetCoreTemplate.DataAccess.EF.Repositories
                 address.AddressPhones.Add(new AddressPhone(phone, address));
             }
             SaveChanges();
-            return new AddressViewModel(address);
+            return new AddressFormViewModel(address);
         }
 
         public bool Delete(IdParams parameters)
@@ -80,16 +80,33 @@ namespace NetCoreTemplate.DataAccess.EF.Repositories
             return true;
         }
 
-        public AddressViewModel Get(IdParams parameters)
+        public AddressFormViewModel Get(IdParams parameters)
         {
             var address = base.Get(parameters.Id);
             if (address != null)
             {
                 DatabaseContext.Entry(address).Collection(a => a.AddressPhones).Load();
-                var result = new AddressViewModel(address);
+                var result = new AddressFormViewModel(address);
                 return result;
             }
             return null;
+        }
+
+        public IEnumerable<AddressGridViewModel> GetPage(PagerParams parameters)
+        {
+            var result = GetAll()
+                .Skip(parameters.StartIndex).Take(parameters.EndIndex)
+                .Select(address => new AddressGridViewModel
+                {
+                    Id = address.Id,
+                    State = address.State,
+                    Country = address.Country,
+                    City = address.City,
+                    ModifyDate = address.ModifyDate,
+                    AddressLine = address.AddressLine,
+                    PostalCode = address.PostalCode
+                }).ToList();
+            return result;
         }
     }
 }
