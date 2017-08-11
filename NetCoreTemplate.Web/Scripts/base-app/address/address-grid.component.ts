@@ -11,7 +11,6 @@ export class AddressGridComponent implements OnInit {
     addressesCount: number;
     currentPage: number = 1;
     pageLength : number = 5;
-    // pager object
     pager: any = {};
 
     constructor(

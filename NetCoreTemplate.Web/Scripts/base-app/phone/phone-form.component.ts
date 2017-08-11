@@ -2,15 +2,12 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { Http } from '@angular/http';
 
-import { EventsService } from '../../_services/events.service';
-import { PhonesService, PhoneViewModel, IdParams } from '../../_services/controller-generated.service';
-
+import { PhonesService, PhoneViewModel, IdParams , EventsService } from '../../_services/index';
 
 @Component({
     moduleId: module.id.toString(),
     selector:'phone-form',
     templateUrl: 'phone-form.component.html'
-    //styleUrls: ['phone.form.component.less']
 })
 
 export class PhoneFormComponent implements OnInit{

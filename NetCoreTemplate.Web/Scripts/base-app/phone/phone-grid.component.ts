@@ -1,8 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router'
 
-import { EventsService } from '../../_services/events.service';
-import { PhonesService, PhoneViewModel, IdParams } from '../../_services/controller-generated.service';
+import { PhonesService, PhoneViewModel, IdParams, EventsService } from '../../_services/index';
 
 @Component({
     templateUrl: 'phone-grid.component.html'

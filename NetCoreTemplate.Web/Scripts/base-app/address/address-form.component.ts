@@ -15,15 +15,15 @@ declare var $: any;
 
 export class AddressFormComponent implements OnInit{
 
-    private address: AddressFormViewModel;
-    selectedPhoneIds : any[];
+    private address: any;
+    private selectedPhoneIds : any[];
+
     constructor(
         private http: Http,
         private route: ActivatedRoute,
         private router: Router,
         private addressesService: AddressesService,
         private phonesServices : PhonesService,
-
         private eventsService: EventsService,
     ) {
         this.address = new AddressFormViewModel();
